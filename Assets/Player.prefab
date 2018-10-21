@@ -221,7 +221,6 @@ MonoBehaviour:
   Parkour: ParkourP1
   Jump: JumpP1
   MaxRun_Speed: 6
-  Acceleration: 0.5
   WallRunMax: 100
   CameraT: {fileID: 0}
   gravity: 30
@@ -249,8 +248,9 @@ MonoBehaviour:
   RighteousFireMultiDamage: 0.2
   RighteousFireIFrames: 0
   RighteousFireIFramesMax: 1
-  bulletPrefab: {fileID: 0}
-  bulletSpawn: {fileID: 0}
+  bulletPrefab: {fileID: 1684625970827672, guid: 56d6a5bcecc41fa4fb44a9fe4e7dfa61,
+    type: 2}
+  bulletSpawn: {fileID: 4894710784207100}
   rotation: {x: 0, y: 0, z: 0}
   q: {x: 0, y: 0, z: 0, w: 0}
   PlayerNumber: 1

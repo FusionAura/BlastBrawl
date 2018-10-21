@@ -17,14 +17,17 @@ public class PathFollower : MonoBehaviour {
     static Quaternion CurrentRotationHolder; // Store Node Position
     static Vector3 startPosition;
     static Quaternion startRotate;
-    public int direction = 1;
+    public bool direction = false;
     public bool CameraMove = false;
 
+    public GameObject MainMenu;
+    public GameObject LobbyMenu;
 
 
     // Use this for initialization
     void Start ()
     {
+        
         PathNode = GetComponentsInChildren<Node> ();
         checkNode();
 	}
@@ -41,10 +44,15 @@ public class PathFollower : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (CameraMove == true)
+        if (CameraMove == true && direction == false)
         {
-            timer += Time.deltaTime * PathNode[CurrentNode].NodeSpeed * direction;
+            timer += Time.deltaTime * PathNode[CurrentNode].NodeSpeed;
 
+            if (CurrentNode > 7)
+            {
+                MainMenu.SetActive(false);
+                LobbyMenu.SetActive(true);
+            }
             if (Player.transform.position != CurrentPositionHolder)
             {
                 Player.transform.position = Vector3.Lerp(startPosition, CurrentPositionHolder, timer);
@@ -56,6 +64,40 @@ public class PathFollower : MonoBehaviour {
                 {
                     CurrentNode++;
                     checkNode();
+                }else
+                {
+                    CameraMove = false;
+                    direction = true;
+                }
+
+
+            }
+        }
+        else if (CameraMove == true &&  direction == true)
+        {
+            timer += Time.deltaTime * PathNode[CurrentNode].NodeSpeed;
+
+            if (CurrentNode < 7)
+            {
+                MainMenu.SetActive(true);
+                LobbyMenu.SetActive(false);
+            }
+            if (Player.transform.position != CurrentPositionHolder)
+            {
+                Player.transform.position = Vector3.Lerp(startPosition, CurrentPositionHolder, timer);
+                Player.transform.rotation = Quaternion.Lerp(startRotate, CurrentRotationHolder, timer);
+            }
+            else
+            {
+                if (CurrentNode >0)
+                {
+                    CurrentNode--;
+                    checkNode();
+                }
+                else
+                {
+                    CameraMove = false;
+                    direction = false;
                 }
 
 

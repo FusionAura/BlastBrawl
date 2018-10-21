@@ -77,7 +77,7 @@ public class PlayerOffense : MonoBehaviour {
     public int PlayerNumber = 1;
 
     private float attackPause = 0;
-    private float attackPauseTimer = 0.5f;
+    private float attackPauseTimer = 0.2f;
 
 
     private GameObject MatchController;

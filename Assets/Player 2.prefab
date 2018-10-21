@@ -203,7 +203,6 @@ MonoBehaviour:
   Parkour: ParkourP2
   Jump: JumpP2
   MaxRun_Speed: 6
-  Acceleration: 0.5
   WallRunMax: 100
   CameraT: {fileID: 0}
   gravity: 30
@@ -223,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Melee: MeleeP2
-  GroundPound: GroundPoundP1
+  GroundPound: GroundPoundP2
   Ability1: Ability1P2
   Ability2: Ability2P2
   GroundPoundAttack: 0

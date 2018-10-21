@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     //Public Variables - Easy to edit stats in editor.
     private float _Forward_speed = 0f;
     public float MaxRun_Speed = 6.0f;
-    public float Acceleration = 0.5f;
+    private float Acceleration = 1f;
     public float WallRunMax = 100;
     public Transform CameraT;
     public float gravity = 14.0f;
