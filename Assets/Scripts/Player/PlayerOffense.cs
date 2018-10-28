@@ -48,6 +48,8 @@ public class PlayerOffense : MonoBehaviour {
 
     //Energy Blast
     private int MultiHit = 2;
+    private float EBCost = 1;
+    private float EBCostPS = 2;
     private float EBDamage = 15f;
     private float EBlastRadius = 1.5f;
     private float EBlastSpeed = 150f;
@@ -77,7 +79,7 @@ public class PlayerOffense : MonoBehaviour {
     public int PlayerNumber = 1;
 
     private float attackPause = 0;
-    private float attackPauseTimer = 0.5f;
+    private float attackPauseTimer = 0.2f;
 
 
     private GameObject MatchController;
@@ -215,64 +217,77 @@ public class PlayerOffense : MonoBehaviour {
 
     void EnergyBall()
     {
-        // Create the Bullet from the Bullet Prefab
-        if (EBRateOfFire > EBRateOfFireMax)
+        if (PlayerHP.Mana >= EBCost)
         {
-            // Add velocity to the bullet
-            var bullet = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position, movementScript.CameraT.rotation);
-            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * EBlastSpeed;
-
-            EnergyBall PlayerShooter = bullet.GetComponent<EnergyBall>();
-            PlayerShooter.Shooter = this.gameObject;
-
-            // Destroy the bullet after 2 seconds
-            Destroy(bullet, ProjectileLife);
-            EBRateOfFire = 0;
-
-        }
-        else
-        {
-            EBRateOfFire += 1 * Time.deltaTime;
-        }
-        if (MultiHit > 0)
-        {
-           //Can the Player shoot any more projectiles for Multi Cast?
-            if (EBRateOfFireMulitiCount > 0)
+            if (EBCostPS >= 1)
             {
-                //Cast Timer for MultiCast
-                if (EBRateOfFireMuliti > EBRateOfFireMulitiMax)
-                {
-                    EBRateOfFireMulitiCount -= 1;
-                    EBRateOfFireMuliti = 0;
-                    // Add velocity to the bullet
-                    var bullet = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position, movementScript.CameraT.rotation);
-                    bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * EBlastSpeed;
-                    EnergyBall PlayerShooter = bullet.GetComponent<EnergyBall>();
-                    PlayerShooter.Shooter = this.gameObject;
-
-
-                    // Destroy the bullet after 2 seconds
-                    Destroy(bullet,ProjectileLife);
-                    EBRateOfFire = 0;
-                }
-                else
-                {
-                    EBRateOfFireMuliti += (1 * Time.deltaTime) * 3;
-                }
+                PlayerHP.Mana -= RFCost;
+                EBCostPS = 0;
+                print(PlayerHP.Mana);
             }
             else
             {
-                //Cooldown
-                if (EBRateOfFireMulitiCool > EBRateOfFireMulitiCoolMax)
+                EBCostPS += 1 * Time.deltaTime;
+            }
+            // Create the Bullet from the Bullet Prefab
+            if (EBRateOfFire > EBRateOfFireMax)
+            {
+                // Add velocity to the bullet
+                var bullet = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position, movementScript.CameraT.rotation);
+                bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * EBlastSpeed;
+
+                EnergyBall PlayerShooter = bullet.GetComponent<EnergyBall>();
+                PlayerShooter.Shooter = this.gameObject;
+
+                // Destroy the bullet after 2 seconds
+                Destroy(bullet, ProjectileLife);
+                EBRateOfFire = 0;
+
+            }
+            else
+            {
+                EBRateOfFire += 1 * Time.deltaTime;
+            }
+            if (MultiHit > 0)
+            {
+                //Can the Player shoot any more projectiles for Multi Cast?
+                if (EBRateOfFireMulitiCount > 0)
                 {
-                    EBRateOfFireMulitiCount = EBRateOfFireMulitiCountMax;
-                    EBRateOfFireMulitiCool = 0;
+                    //Cast Timer for MultiCast
+                    if (EBRateOfFireMuliti > EBRateOfFireMulitiMax)
+                    {
+                        EBRateOfFireMulitiCount -= 1;
+                        EBRateOfFireMuliti = 0;
+                        // Add velocity to the bullet
+                        var bullet = (GameObject)Instantiate(bulletPrefab, bulletSpawn.position, movementScript.CameraT.rotation);
+                        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * EBlastSpeed;
+                        EnergyBall PlayerShooter = bullet.GetComponent<EnergyBall>();
+                        PlayerShooter.Shooter = this.gameObject;
+
+
+                        // Destroy the bullet after 2 seconds
+                        Destroy(bullet, ProjectileLife);
+                        EBRateOfFire = 0;
+                    }
+                    else
+                    {
+                        EBRateOfFireMuliti += (1 * Time.deltaTime) * 3;
+                    }
                 }
                 else
                 {
-                    EBRateOfFireMulitiCool += 1 * Time.deltaTime;
-                }
+                    //Cooldown
+                    if (EBRateOfFireMulitiCool > EBRateOfFireMulitiCoolMax)
+                    {
+                        EBRateOfFireMulitiCount = EBRateOfFireMulitiCountMax;
+                        EBRateOfFireMulitiCool = 0;
+                    }
+                    else
+                    {
+                        EBRateOfFireMulitiCool += 1 * Time.deltaTime;
+                    }
 
+                }
             }
         }
     }

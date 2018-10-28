@@ -1,0 +1,27 @@
+Animations:
+10-60 WALK
+80-120 IDLE
+130-150 Prejump/Landanimation
+150-160 JumpStart
+160-200 Jump Hang Time
+241-321 Just in case full cycle
+340-379 Run
+400-420 Mainattack
+420-445 big attack
+460-580 wall run
+500-549 wall run loop
+600-630 ground pound smash
+620 ground pound pause
+640-670 Wall run up
+645-665 Wall Run loop
+700 - death
+760-790 Kiblast
+790-820 Righteous fire
+820-845 Teleport Departure
+860-880 Teleport Arrival
+880-910 Armour lock
+890-900 Armour lock hold
+910-930 Crystal hail
+940-970 WallJump
+
+

@@ -42,9 +42,37 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         MatchController = GameObject.FindWithTag("GameController");
-
         OffenseScript = GetComponent<PlayerOffense>();
         PlayerNumber = OffenseScript.PlayerNumber;
+
+        switch (PlayerNumber)
+        {
+            default:
+                {
+                    break;
+                }
+            case 1:
+                {
+                    MatchController.GetComponent<PreGameSetup>().Player1 = this.gameObject;
+                    break;
+                }
+            case 2:
+                {
+                    MatchController.GetComponent<PreGameSetup>().Player2 = this.gameObject;
+                    break;
+                }
+            case 3:
+                {
+                    MatchController.GetComponent<PreGameSetup>().Player3 = this.gameObject;
+                    break;
+                }
+            case 4:
+                {
+                    MatchController.GetComponent<PreGameSetup>().Player4 = this.gameObject;
+                    break;
+                }
+        }
+
     }
 
     // Update is called once per frame

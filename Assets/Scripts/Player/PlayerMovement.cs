@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     //Public Variables - Easy to edit stats in editor.
     private float _Forward_speed = 0f;
     public float MaxRun_Speed = 6.0f;
-    public float Acceleration = 0.5f;
+    private float Acceleration = 1f;
     public float WallRunMax = 100;
     public Transform CameraT;
     public float gravity = 14.0f;
@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _inputControls;
     private float _WallRunTimer = 0;
     private bool _DJump = false;
+    private bool WallDJump = false;
     private float _JumpPadJump;
     private float _VerticalVelocity;
     private bool _WallRun = false;
@@ -162,12 +163,14 @@ public class PlayerMovement : MonoBehaviour
                 //_movement = transform.right;
                 _DJump = false;
                 _StopFall = true;
+                WallDJump = false;
             }
             else if (Physics.Raycast(rayLeft, out hit) && hit.collider.CompareTag("Floor") && hit.distance < 1 && _VerticalVelocity <= 0)
             {
                 //_movement = transform.right;
                 _StopFall = true;
                 _DJump = false;
+                WallDJump = false;
             }
             else
             {
@@ -185,6 +188,7 @@ public class PlayerMovement : MonoBehaviour
         if (Controller.isGrounded)
         {
             _StopFall = false;
+            WallDJump = false;
             _DJump = false;
             //apply some gravity to ensure player sticks to grond
             _VerticalVelocity = -gravity * Time.deltaTime;
@@ -371,8 +375,15 @@ public class PlayerMovement : MonoBehaviour
         {
             _DJump = true;
             _VerticalVelocity = JumpVal;
+            print("DJ");
         }
-
+        if (Input.GetButtonDown(Jump) && (_DJump == false) && Controller.isGrounded == false && GroundPoundactive == false && WallDJump == false)
+        {
+            _DJump = true;
+            WallDJump = true;
+            _VerticalVelocity = JumpVal;
+            print("DJ");
+        }
     }
 
     void Launch(float JumpVal)
