@@ -4,20 +4,6 @@ using UnityEngine;
 
 public class PlayerOffense : MonoBehaviour {
 
-        public int PlayerNumber = 1;
-
-    private float attackPause = 0;
-    private float attackPauseTimer = 0.2f;
-
-    public GameObject sword;
-    private GameObject MatchController;
-    PlayerMovement movementScript;
-    CharacterController Controller;
-    PlayerHealth PlayerHP;
-    PlayerOffense PlayerAttack;
-    PlayerAnimations PlayerAnimation;
-
-    
     //Melee Stats
     private float meleeDamage = 25f;
     public bool Attacking = false;
@@ -27,16 +13,8 @@ public class PlayerOffense : MonoBehaviour {
     public string GroundPound = "GroundPoundP1";
     public string Ability1 = "Ability1P1";
     public string Ability2 = "Ability2P1";
-    public string Ability1Name = "RighteousFire";
-    public string Ability2Name = "EnergyBall";
-
-
-    //Particle Handling
-    public GameObject Fire;
-    public GameObject HyperShieldParticle;
-    public GameObject Landing;
-    public GameObject EnergyBallParticle;
-
+    public string Ability1Name = "";
+    public string Ability2Name = "";
 
     //Damage Values
     private float GroundPoundDamage = 15f;
@@ -52,7 +30,7 @@ public class PlayerOffense : MonoBehaviour {
     public float RighteousFireIFrames = 0f;                          //Iframes for RF
     public float RighteousFireIFramesMax = 1f;                       //Maximum Amount of IFrames given to a player after been hit by the attack
     private int RighteousFireMultiStrike = 4;                        //How many times the MultiStike hits
-    
+   
     private float RFCostPS = 1f;                                     //How quickly mana is depleted
 
     //MultiHit Speed
@@ -79,6 +57,7 @@ public class PlayerOffense : MonoBehaviour {
     private float EBMPLifeSteal = 0;
     private float EBCrit = 0;
     private float AoERadius = 0;
+    public GameObject Sword;
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 
@@ -97,38 +76,21 @@ public class PlayerOffense : MonoBehaviour {
     public Vector3 rotation;
     public Quaternion q;
 
-    //Sword Extend
-    public bool SwordExtend = false;
-    public bool SwordHitbox = false;
-    public float SwordMPCost = 10f;
+
+    public int PlayerNumber = 1;
+
+    private float attackPause = 0;
+    private float attackPauseTimer = 0.2f;
 
 
-
-    //Teleport Variables
-    private float TeleportDistanceMax = 100f; //the maximum distance the player will teleport
-    private float TeleportDistanceVal = 0f; //The distance the player will travel
-    private float TeleportDistanceSpeed = 1f; //
-    private float TeleportDamageRadius = 32f;
-    private float TeleportDamage = 25f;
-    private float TeleportMP = 30f;
-    private bool stopRay = false;
-    public GameObject TeleportTarget;
-    private bool TeleportHold = false;
-    private Vector3 fwd;
-
-    private GameObject SpawnTarget;
-    private GameObject Target;
-
-    //Hyper Shield Variables
-    private float HSCost = 10;
-    private float HSCostPS = 1;
-
+    private GameObject MatchController;
+    PlayerMovement movementScript;
+    CharacterController Controller;
+    PlayerHealth PlayerHP;
+    PlayerOffense PlayerAttack;
 
 
     private float radius = 7.5f;
-
-
-
 
 
     // Use this for initialization
@@ -140,359 +102,117 @@ public class PlayerOffense : MonoBehaviour {
         Controller = GetComponent<CharacterController>();
         PlayerHP = GetComponent<PlayerHealth>();
         PlayerAttack = GetComponent<PlayerOffense>();
-        PlayerAnimation = GetComponent<PlayerAnimations>();
         MatchController = GameObject.FindWithTag("GameController");
         EBRateOfFireMulitiCountMax = MultiHit;
-        SpawnTarget = (GameObject)Instantiate(TeleportTarget, transform.position, movementScript.CameraT.rotation);
-        Target = SpawnTarget;
-        Target.SetActive(false);
-       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (MatchController.GetComponent<GameController>().Freeze == false)
+
+        //If Player is in the air and Ground Pound Button is pressed
+        if (Controller.isGrounded == false && Input.GetButtonDown(GroundPound))
         {
+            //Ground Pound is active. Reset the Pause before the attack
+            GroundPoundAttack = true;
+            attackPause = 0;
 
-            //If Player is in the air and Ground Pound Button is pressed
-            if (Controller.isGrounded == false && Input.GetButtonDown(GroundPound))
+            //Set Ground pound to be active in Movement Script
+            GetComponent<PlayerMovement>().GroundPoundactive = true;
+        }
+
+
+        if (GroundPoundAttack == true && GetComponent<PlayerMovement>().GroundPoundMove == false)
+        {
+            if (attackPause <= attackPauseTimer)
             {
-                //Ground Pound is active. Reset the Pause before the attack
-                GroundPoundAttack = true;
-                attackPause = 0;
+                attackPause += 1 * Time.deltaTime;
+                GetComponent<PlayerMovement>().VerticalVelocity = 0;
+                GetComponent<PlayerMovement>().StopFall = true;
 
-                //Set Ground pound to be active in Movement Script
-                GetComponent<PlayerMovement>().GroundPoundactive = true;
-            }
-
-
-            if (GroundPoundAttack == true && GetComponent<PlayerMovement>().GroundPoundMove == false)
-            {
-                if (attackPause <= attackPauseTimer)
-                {
-                    attackPause += 1 * Time.deltaTime;
-                    GetComponent<PlayerMovement>().VerticalVelocity = 0;
-                    GetComponent<PlayerMovement>().StopFall = true;
-
-                }
-                else
-                {
-                    GetComponent<PlayerMovement>().GroundPoundMove = true;
-                    GetComponent<PlayerMovement>().StopFall = false;
-
-                }
-            }
-            if (GroundPoundAttack == true && Controller.isGrounded == true)
-            {
-                GroundPoundAction(transform.position, radius);
-                GroundPoundAttack = false;
-            }
-
-            if (GetComponent<PlayerMovement>().GroundPoundactive == true && GetComponent<PlayerMovement>().StopFall == false)
-            {
-                attackPause = 0;
-                GetComponent<PlayerMovement>().VerticalVelocity -= 2f;
-                CencelGroundPound();
-                RaycastHit hit;
-                Ray rayForward = new Ray(transform.position, transform.forward);
-
-                Debug.DrawRay(transform.position, transform.forward);
-
-                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                if (Physics.Raycast(rayForward, out hit) && hit.collider.CompareTag("Floor") && hit.distance < 1 && Controller.isGrounded == false)
-                {
-                    GetComponent<PlayerMovement>().GroundPoundMove = false;
-                }
-            }
-            //Righteous Fire Ability
-            if (RighteousFireIFrames < RighteousFireIFramesMax)
-            {
-                RighteousFireIFrames += 1 * Time.deltaTime;
-            }
-            if (Input.GetAxis(Ability1) > 0.5)
-            {
-                if (Ability1Name == "RighteousFire" && GetComponent<PlayerMovement>().HyperShield == false)
-                {
-                    RighteousFire(transform.position, radius);
-                }
-                if (Ability1Name == "EnergyBall" && GetComponent<PlayerMovement>().HyperShield == false)
-                {
-                    EnergyBall();
-                }
-                if (Ability1Name == "HyperShield" && PlayerHP.Mana >= HSCost)
-                {
-                    HyperShield(true);
-                }
-                else
-                {
-                    HyperShield(false);
-                    HyperShieldParticle.SetActive(false);
-                }
-                if (Ability1Name == "Sword" && GetComponent<PlayerMovement>().HyperShield == false)
-                {
-                    SwordExtend = true;
-                    SwordHitbox = PlayerAnimation.SwordHitboxLarge;
-
-
-                }
-                if (Ability1Name == "Teleport" && GetComponent<PlayerMovement>().HyperShield == false)
-                {
-                    Teleport(true, transform.position, TeleportDamageRadius);
-                }
             }
             else
             {
-                if (Ability1Name == "HyperShield")
-                {
-                    HyperShield(false);
-                    HyperShieldParticle.SetActive(false);
-                }
-                if (Ability1Name == "Sword")
-                {
-                    SwordExtend = false;
-                    SwordHitbox = PlayerAnimation.SwordHitboxLarge;
-                }
-                if (Ability1Name == "Teleport")
-                {
-                    Teleport(false, transform.position, TeleportDamageRadius);
-                }
-                if (Ability1Name == "RighteousFire")
-                {
-                    Fire.SetActive(false);
-                }
-            }
-            if (Input.GetAxis(Ability2) > 0.5)
-            {
-                if (Ability2Name == "RighteousFire" && GetComponent<PlayerMovement>().HyperShield == false)
-                {
-                    RighteousFire(transform.position, radius);
-                }
-                if (Ability2Name == "EnergyBall" && GetComponent<PlayerMovement>().HyperShield == false)
-                {
-                    EnergyBall();
-                }
-                if (Ability2Name == "Sword" && GetComponent<PlayerMovement>().HyperShield == false)
-                {
-                    SwordExtend = true;
-                    SwordHitbox = PlayerAnimation.SwordHitboxLarge;
-                }
-                if (Ability2Name == "HyperShield" && PlayerHP.Mana >= HSCost)
-                {
-                    HyperShield(true);
-                }
-                else
-                {
-                    HyperShield(false);
-                    HyperShieldParticle.SetActive(false);
-                }
-                if (Ability2Name == "Teleport" && GetComponent<PlayerMovement>().HyperShield == false)
-                {
-                    Teleport(true, transform.position, TeleportDamageRadius);
-                }
-            }
-            else
-            {
-                //Stop Particle Effects
+                GetComponent<PlayerMovement>().GroundPoundMove = true;
+                GetComponent<PlayerMovement>().StopFall = false;
 
-                if (Ability2Name == "HyperShield")
-                {
-                    HyperShield(false);
-                    HyperShieldParticle.SetActive(false);
-                }
-                if (Ability2Name == "Sword")
-                {
-                    SwordExtend = false;
-                    SwordHitbox = PlayerAnimation.SwordHitboxLarge;
-                }
-                if (Ability2Name == "Teleport")
-                {
-                    Teleport(false, transform.position, TeleportDamageRadius);
-                }
-                if (Ability2Name == "RighteousFire")
-                {
-                    Fire.gameObject.SetActive(false);
-                }
             }
         }
-    }
-    void HyperShield(bool held)
-    {
-        
-        if (held == true)
+        if (GroundPoundAttack == true && Controller.isGrounded == true)
         {
-            //If player has mana, perform the ability
-            if (PlayerHP.Mana >= HSCost)
-            {
-                HyperShieldParticle.SetActive(true);
-                PlayerHP.Mana -= HSCost;
-                HSCostPS = 0;
-                GetComponent<PlayerMovement>().HyperShield = held;
-                print(PlayerHP.Mana);
-            }
-            else
-            {
-                HSCostPS += 1 * Time.deltaTime;
-            }
+            GroundPoundAction(transform.position, radius);
+            GroundPoundAttack = false;
         }
-        else
+
+        if (GetComponent<PlayerMovement>().GroundPoundactive == true && GetComponent<PlayerMovement>().StopFall == false)
         {
-            GetComponent<PlayerMovement>().HyperShield = false;
-            held = false;
-        }
-    }
-    void Teleport(bool Held , Vector3 center, float radius)
-    {
-        RaycastHit hit;
-        Ray rayForward = new Ray(transform.position, fwd * TeleportDistanceVal);
-        Debug.DrawRay(transform.position, fwd * TeleportDistanceVal);
+            attackPause = 0;
+            GetComponent<PlayerMovement>().VerticalVelocity -= 2f;
+            CencelGroundPound();
+            RaycastHit hit;
+            Ray rayForward = new Ray(transform.position, transform.forward);
 
-        //If Teleport Button is held
-        if (Held)
-        {
-            Target.SetActive(true);
+            Debug.DrawRay(transform.position, transform.forward);
 
-            fwd = movementScript.CameraT.transform.forward;
-            TeleportHold = true;
-            //Start incrementing the Teleport Range per second if smaller than the max distance
-            if (TeleportDistanceVal < TeleportDistanceMax && stopRay == false)
-            {
-                TeleportDistanceVal += TeleportDistanceSpeed;
-            }
-            Target.transform.position = transform.position + fwd * TeleportDistanceVal;
-
-            if (Physics.Raycast(rayForward, out hit, TeleportDistanceVal))
-            {
-                //Does the Target sphere exist
-                if (TeleportTarget != null)
-                {
-                    Target.transform.position = hit.point;
-                    stopRay = true;
-                }
-            }
-            else
-            {
-                stopRay = false;
-            }
-        }
-        else if (Held == false && TeleportHold == true) //When released, teleport the distance
-        {
-            if (PlayerHP.Mana >= RFCost)
-            {
-                if (PlayerHP.Mana >= TeleportMP)
-                {
-                    PlayerHP.Mana -= TeleportMP;
-                }
-            }
-            Collider[] hitColliders = Physics.OverlapSphere(center, radius);
-            int i = 0;
-            while (i < hitColliders.Length)
-            {
-                //Is the object another player and not the caster.
-                if (hitColliders[i].CompareTag("Player") && !(hitColliders[i].gameObject == gameObject))
-                {
-                    //Gonna Change to a less intensive method. needs to send a value as well.
-                    hitColliders[i].GetComponent<PlayerHealth>().AddDamage(TeleportDamage, this.gameObject);
-
-                    hitColliders[i].GetComponent<PlayerHealth>().transform.Translate(this.transform.forward);
-                    if (hitColliders[i].GetComponent<PlayerHealth>().Health <= 0)
-                    {
-                        switch (PlayerNumber)
-                        {
-                            //If Game is 2 Player
-                            default:
-                                {
-                                    break;
-                                }
-                            case 1:
-                                {
-                                    MatchController.GetComponent<GameController>().UpdateScore(1, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
-                                    break;
-                                }
-                            case 2:
-                                {
-                                    MatchController.GetComponent<GameController>().UpdateScore(2, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    MatchController.GetComponent<GameController>().UpdateScore(3, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
-                                    break;
-                                }
-                            case 4:
-                                {
-                                    MatchController.GetComponent<GameController>().UpdateScore(4, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
-                                    break;
-                                }
-                        }
-
-                    }
-
-                }
-                //Next in Array of objects in Sphere Overlay
-                i++;
-            }
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            transform.position = transform.position + (fwd * (TeleportDistanceVal - 5));
-            TeleportHold = false;
-            TeleportDistanceVal = 0;
-            Target.SetActive(false);
-
-            Collider[] hitCollidersAfter = Physics.OverlapSphere(center, radius);
-            int z = 0;
-            while (z < hitCollidersAfter.Length)
+            if (Physics.Raycast(rayForward, out hit) && hit.collider.CompareTag("Floor") && hit.distance < 1 && Controller.isGrounded == false)
             {
-                //Is the object another player and not the caster.
-                if (hitCollidersAfter[z].CompareTag("Player") && !(hitCollidersAfter[z].gameObject == gameObject))
-                {
-                    //Gonna Change to a less intensive method. needs to send a value as well.
-                    hitCollidersAfter[z].GetComponent<PlayerHealth>().AddDamage(TeleportDamage, this.gameObject);
-
-                    hitCollidersAfter[z].GetComponent<PlayerHealth>().transform.Translate(this.transform.forward);
-                    if (hitCollidersAfter[z].GetComponent<PlayerHealth>().Health <= 0)
-                    {
-                        switch (PlayerNumber)
-                        {
-                            //If Game is 2 Player
-                            default:
-                                {
-                                    break;
-                                }
-                            case 1:
-                                {
-                                    MatchController.GetComponent<GameController>().UpdateScore(1, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
-                                    break;
-                                }
-                            case 2:
-                                {
-                                    MatchController.GetComponent<GameController>().UpdateScore(2, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    MatchController.GetComponent<GameController>().UpdateScore(3, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
-                                    break;
-                                }
-                            case 4:
-                                {
-                                    MatchController.GetComponent<GameController>().UpdateScore(4, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
-                                    break;
-                                }
-                        }
-
-                    }
-
-                }
-                //Next in Array of objects in Sphere Overlay
-                z++;
+                GetComponent<PlayerMovement>().GroundPoundMove = false;
             }
-
-            //stopRay = false;
-            // TeleportCollide = false;
         }
-    }
+        //Righteous Fire Ability
+        if (RighteousFireIFrames < RighteousFireIFramesMax)
+        {
+            RighteousFireIFrames += 1 * Time.deltaTime;
+        }
+        if (Input.GetAxis(Ability1) > 0.5)
+        {
+            if (Ability1Name == "RighteousFire")
+            {
+                RighteousFire(transform.position, radius);
+            }
+            if (Ability1Name == "EnergyBall")
+            {
+                EnergyBall();
+            }
+            if (Ability1Name == "HyperShield")
+            {
+                HyperShield();
+            }
+            if (Ability1Name == "Teleport")
+            {
+                Teleport();
+            }
+        }
+        if (Input.GetAxis(Ability2) > 0.5)
+        {
+            if (Ability2Name == "RighteousFire")
+            {
+                RighteousFire(transform.position, radius);
+            }
+            if (Ability2Name == "EnergyBall")
+            {
+                EnergyBall();
+            }
+            if (Ability2Name == "HyperShield")
+            {
+                HyperShield();
+            }
+            if (Ability2Name == "Teleport")
+            {
+                Teleport();
+            }
+        }
 
-    
+    }
+    void HyperShield()
+    {
+
+    }
+    void Teleport()
+    {
+
+    }
     void EnergyBall()
     {
         if (PlayerHP.Mana >= EBCost)
@@ -572,7 +292,6 @@ public class PlayerOffense : MonoBehaviour {
     //Ground Pound Attack
     void GroundPoundAction(Vector3 center, float radius)
     {
-
         Collider[] hitColliders = Physics.OverlapSphere(center, radius);
         int i = 0;
         while (i < hitColliders.Length)
@@ -625,7 +344,6 @@ public class PlayerOffense : MonoBehaviour {
     //Ground Pound Attack
     void CencelGroundPound()
     {
-
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1f);
         int i = 0;
         while (i < hitColliders.Length)
@@ -643,15 +361,11 @@ public class PlayerOffense : MonoBehaviour {
         }
     }
 
-    
     //Righteous Fire Ability CAll
     void RighteousFire(Vector3 center, float radius)
     {
         if (PlayerHP.Mana >= RFCost)
         {
-            Fire.SetActive(true);
-            //Fire.gameObject.transform = this.transform;
-
             if (RFCostPS >= 1)
             {
                 PlayerHP.Mana -= RFCost;
@@ -662,7 +376,7 @@ public class PlayerOffense : MonoBehaviour {
             {
                 RFCostPS += 1 * Time.deltaTime;
             }
-            
+
             Collider[] hitColliders = Physics.OverlapSphere(center, radius);
             int i = 0;
             while (i < hitColliders.Length)
@@ -927,4 +641,8 @@ public class PlayerOffense : MonoBehaviour {
     }
 }*/
 
+    private void OnDrawGizmos()
+    {
+         Gizmos.DrawWireSphere(transform.position, radius); 
+    }
 }

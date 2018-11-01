@@ -266,7 +266,7 @@ ModelImporter:
     7400012: BigAttack
     7400014: WallRunStart
     7400016: WallRunLoop
-    7400018: GroundPoundStart
+    7400018: GroundPoundSmash
     7400020: GroundPoundPause
     7400022: Death
     7400024: KiBlast
@@ -274,11 +274,9 @@ ModelImporter:
     7400028: TeleportDeparture
     7400030: TeleportArrival
     7400032: ArmourLock
-    7400034: ArmourLockEnd
+    7400034: ArmourLockHold
     7400036: CrystalHail
     7400038: WallRunEnd
-    7400040: ArmourLockLoop
-    7400042: GroundPoundCharge
     9500000: //RootNode
     13700000: pCube37
   externalObjects: {}
@@ -561,10 +559,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: GroundPoundStart
+      name: GroundPoundSmash
       takeName: Take 001
       firstFrame: 600
-      lastFrame: 610
+      lastFrame: 630
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -591,8 +589,8 @@ ModelImporter:
     - serializedVersion: 16
       name: GroundPoundPause
       takeName: Take 001
-      firstFrame: 609
-      lastFrame: 611
+      firstFrame: 620
+      lastFrame: 620
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -760,7 +758,7 @@ ModelImporter:
       name: ArmourLock
       takeName: Take 001
       firstFrame: 880
-      lastFrame: 890
+      lastFrame: 910
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -785,10 +783,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: ArmourLockEnd
+      name: ArmourLockHold
       takeName: Take 001
       firstFrame: 890
-      lastFrame: 910
+      lastFrame: 900
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -868,62 +866,6 @@ ModelImporter:
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: ArmourLockLoop
-      takeName: Take 001
-      firstFrame: 890
-      lastFrame: 900
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0.96
-    - serializedVersion: 16
-      name: GroundPoundCharge
-      takeName: Take 001
-      firstFrame: 610
-      lastFrame: 630
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0.96
     isReadable: 1
   meshes:
     lODScreenPercentages: []
