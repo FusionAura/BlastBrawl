@@ -8,6 +8,9 @@ public class GameCamera : MonoBehaviour
     public Transform target;
     public GameObject Player;
 
+    public string Ability1;
+    public string Ability2;
+
     public Transform Respawntarget;
     public GameObject RespawnPlayer;
     public float sensivityX = 4.0f;
@@ -76,6 +79,8 @@ public class GameCamera : MonoBehaviour
                 //Reset Respawn Timer and create the player object again
                 RespawnTimer = 0;
                 Player=Instantiate(RespawnPlayer, currentPoint.transform.position, currentPoint.transform.rotation);
+                Player.GetComponent<PlayerOffense>().Ability1 = Ability1;
+                Player.GetComponent<PlayerOffense>().Ability2 = Ability2;
                 //Player.transform.y = currentPoint.transform.y + 32;
 
                 //Set variables for the player and Camera

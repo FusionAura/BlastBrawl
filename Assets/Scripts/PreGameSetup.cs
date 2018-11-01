@@ -10,13 +10,18 @@ public class PreGameSetup : MonoBehaviour {
     public Camera Cam3;
     public Camera Cam4;
 
+    public GameObject Cam1Object;
+    public GameObject Cam2Object;
+    public GameObject Cam3Object;
+    public GameObject Cam4Object;
+
     public GameObject Player1;
     public GameObject Player2;
     public GameObject Player3;
     public GameObject Player4;
     public int PlayerCount = 1;
 
-
+    
 
 
     // Use this for initialization

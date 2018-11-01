@@ -2691,6 +2691,8 @@ MonoBehaviour:
   HideCursor: 0
   target: {fileID: 1179185573}
   Player: {fileID: 628992833}
+  Ability1: 
+  Ability2: 
   Respawntarget: {fileID: 4655280855443276, guid: ba22e3f92a5e51a49b9c41b1e2428d9d,
     type: 2}
   RespawnPlayer: {fileID: 1142004962240056, guid: ba22e3f92a5e51a49b9c41b1e2428d9d,
@@ -24315,6 +24317,8 @@ MonoBehaviour:
   HideCursor: 0
   target: {fileID: 1112627867}
   Player: {fileID: 177630954}
+  Ability1: 
+  Ability2: 
   Respawntarget: {fileID: 4333036592691944, guid: bb3287ab3f78fc841a41d4860dbd5d5e,
     type: 2}
   RespawnPlayer: {fileID: 1622671882700852, guid: bb3287ab3f78fc841a41d4860dbd5d5e,
@@ -24866,6 +24870,26 @@ Prefab:
       propertyPath: Player4Win
       value: 
       objectReference: {fileID: 1683825181}
+    - target: {fileID: 114893611148379894, guid: d15720c7381949046b8d0d46db05befd,
+        type: 2}
+      propertyPath: Cam1Object
+      value: 
+      objectReference: {fileID: 444220262}
+    - target: {fileID: 114893611148379894, guid: d15720c7381949046b8d0d46db05befd,
+        type: 2}
+      propertyPath: Cam2Object
+      value: 
+      objectReference: {fileID: 1952405461}
+    - target: {fileID: 114893611148379894, guid: d15720c7381949046b8d0d46db05befd,
+        type: 2}
+      propertyPath: Cam3Object
+      value: 
+      objectReference: {fileID: 1336551690}
+    - target: {fileID: 114893611148379894, guid: d15720c7381949046b8d0d46db05befd,
+        type: 2}
+      propertyPath: Cam4Object
+      value: 
+      objectReference: {fileID: 1270714897}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d15720c7381949046b8d0d46db05befd, type: 2}
   m_IsPrefabParent: 0
@@ -24932,6 +24956,8 @@ MonoBehaviour:
   HideCursor: 0
   target: {fileID: 103350676}
   Player: {fileID: 439141466}
+  Ability1: 
+  Ability2: 
   Respawntarget: {fileID: 4040824468048206, guid: 3447086217d32494bb8dffcc7776e254,
     type: 2}
   RespawnPlayer: {fileID: 1736319638091202, guid: 3447086217d32494bb8dffcc7776e254,
@@ -38168,6 +38194,8 @@ MonoBehaviour:
   HideCursor: 0
   target: {fileID: 1862198892}
   Player: {fileID: 575283364}
+  Ability1: 
+  Ability2: 
   Respawntarget: {fileID: 4973314077747492, guid: ec183316231af854db59f6791f086de9,
     type: 2}
   RespawnPlayer: {fileID: 1476437535353956, guid: ec183316231af854db59f6791f086de9,

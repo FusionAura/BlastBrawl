@@ -22,6 +22,7 @@ TagManager:
   - Teleport2
   - Teleport3
   - Teleport4
+  - Messenger
   layers:
   - Default
   - TransparentFX

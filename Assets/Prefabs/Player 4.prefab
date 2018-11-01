@@ -3931,8 +3931,8 @@ MonoBehaviour:
   GroundPound: GroundPoundP4
   Ability1: Ability1P4
   Ability2: Ability2P4
-  Ability1Name: 
-  Ability2Name: 
+  Ability1Name: Teleport
+  Ability2Name: RighteousFire
   Fire: {fileID: 1282569186324986}
   HyperShieldParticle: {fileID: 1772564766045146}
   Landing: {fileID: 1109430690375772}

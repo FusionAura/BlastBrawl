@@ -10,22 +10,49 @@ public class SaveValues : MonoBehaviour {
     private GameObject gameControllerObject;
     private Scene m_Scene;
 
-    public string Player1Ability1;
-    public string Player1Ability2;
+    public string Player1Ability1 = "Teleport";
+    public string Player1Ability2 = "RighteousFire";
 
-    public string Player2Ability1;
-    public string Player2Ability2;
+    public string Player2Ability1 = "Teleport";
+    public string Player2Ability2 = "RighteousFire";
 
-    public string Player3Ability1;
-    public string Player3Ability2;
+    public string Player3Ability1 = "Teleport";
+    public string Player3Ability2 = "RighteousFire";
 
-    public string Player4Ability1;
-    public string Player4Ability2;
+    public string Player4Ability1 = "Teleport";
+    public string Player4Ability2 = "RighteousFire";
     // Use this for initialization
 
     void checkLevel()
     {
         gameControllerObject = GameObject.FindWithTag("GameController");
+        //Transfer abilities to Camera Objects. Sets abilities when player respawns
+        gameControllerObject.GetComponent<PreGameSetup>().Cam1Object.GetComponent<GameCamera>().Ability1 = Player1Ability1;
+        gameControllerObject.GetComponent<PreGameSetup>().Cam1Object.GetComponent<GameCamera>().Ability2 = Player1Ability2;
+
+        gameControllerObject.GetComponent<PreGameSetup>().Cam2Object.GetComponent<GameCamera>().Ability1 = Player2Ability1;
+        gameControllerObject.GetComponent<PreGameSetup>().Cam2Object.GetComponent<GameCamera>().Ability2 = Player2Ability2;
+
+        gameControllerObject.GetComponent<PreGameSetup>().Cam3Object.GetComponent<GameCamera>().Ability1 = Player3Ability1;
+        gameControllerObject.GetComponent<PreGameSetup>().Cam3Object.GetComponent<GameCamera>().Ability2 = Player3Ability2;
+
+        gameControllerObject.GetComponent<PreGameSetup>().Cam4Object.GetComponent<GameCamera>().Ability1 = Player4Ability1;
+        gameControllerObject.GetComponent<PreGameSetup>().Cam4Object.GetComponent<GameCamera>().Ability2 = Player4Ability2;
+
+        //Set Abilities when players start round
+
+
+        gameControllerObject.GetComponent<PreGameSetup>().Player1.GetComponent<PlayerOffense>().Ability1Name = Player1Ability1;
+        gameControllerObject.GetComponent<PreGameSetup>().Player1.GetComponent<PlayerOffense>().Ability2Name = Player1Ability2;
+
+        gameControllerObject.GetComponent<PreGameSetup>().Player2.GetComponent<PlayerOffense>().Ability1Name = Player2Ability1;
+        gameControllerObject.GetComponent<PreGameSetup>().Player2.GetComponent<PlayerOffense>().Ability2Name = Player2Ability2;
+
+        gameControllerObject.GetComponent<PreGameSetup>().Player3.GetComponent<PlayerOffense>().Ability1Name = Player3Ability1;
+        gameControllerObject.GetComponent<PreGameSetup>().Player3.GetComponent<PlayerOffense>().Ability2Name = Player3Ability2;
+
+        gameControllerObject.GetComponent<PreGameSetup>().Player4.GetComponent<PlayerOffense>().Ability1Name = Player4Ability1;
+        gameControllerObject.GetComponent<PreGameSetup>().Player4.GetComponent<PlayerOffense>().Ability2Name = Player4Ability2;
 
         if (playerCount == 1)
         {
@@ -54,7 +81,7 @@ public class SaveValues : MonoBehaviour {
             gameControllerObject.GetComponent<PreGameSetup>().Player4.SetActive(false);
 
             gameControllerObject.GetComponent<PreGameSetup>().Cam3.enabled = true;
-            gameControllerObject.GetComponent<PreGameSetup>().Cam4.enabled = false;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam4.enabled = true;
             gameControllerObject.GetComponent<PreGameSetup>().Cam1.enabled = true;
 
             gameControllerObject.GetComponent<PreGameSetup>().Cam2.enabled = true;
