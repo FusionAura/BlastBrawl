@@ -25,20 +25,20 @@ public class PlayerMovement : MonoBehaviour
     public int speed;
 
     //Private Variabler
+    public bool HyperShield = false;
     private Vector3 _inputControls;
     private bool _DJump = false;
     private float _JumpPadJump;
     private float _VerticalVelocity;
     private bool _WallRun = false;
     private Vector3 _movement = Vector3.zero;
-    private bool _freezeMovement = false;
     private float _freeTimer = 0f;
     private float _freeTimerMax = 0.5f;
-    private bool freezeMovement = false;
+    private bool _freezeMovement = false;
     private bool _GroundPoundactive = false;
     private bool _GroundPoundMove = false;
     private bool _StopFall = false;
-
+    private GameObject MatchController;
     PlayerHealth PlayerHP;
 
     //Bleed Status Ailment Timer Stats
@@ -54,176 +54,186 @@ public class PlayerMovement : MonoBehaviour
         //CameraT = Camera.main.transform;
         _Controller = GetComponent<CharacterController>();
         PlayerHP = GetComponent<PlayerHealth>();
+        MatchController = GameObject.FindWithTag("GameController");
     }
 
     void Update()
     {
-        if ((Input.GetButton(Parkour) || Input.GetAxis(Parkour) > 0.5)&& _Forward_speed > 5)
+        if (MatchController.GetComponent<GameController>().Freeze == false)
         {
-            MaxRun_Speed = 20.0f;
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            RaycastHit hit;
-
-            Ray rayRight = new Ray(transform.position, transform.right);
-            Ray rayLeft = new Ray(transform.position, -transform.right);
-            Debug.DrawRay(transform.position, transform.right);
-            Debug.DrawRay(transform.position, -transform.right);
-
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if (Physics.Raycast(rayRight, out hit) && hit.collider.CompareTag("Floor") && hit.distance < 1 && _VerticalVelocity <= 0)
+            if ((Input.GetButton(Parkour) || Input.GetAxis(Parkour) > 0.5) && _Forward_speed > 5)
             {
-                //_movement = transform.right;
-                this.transform.localScale = new Vector3(1, 1, 1);
-                _DJump = false;
-                _StopFall = true;
-                _WallRun = true;
-            }
-            else if (Physics.Raycast(rayLeft, out hit) && hit.collider.CompareTag("Floor") && hit.distance < 1 && _VerticalVelocity <= 0)
-            {
-                this.transform.localScale = new Vector3(-1, 1, 1);
-                //_movement = transform.right;
-                print("Wall Run");
-                _DJump = false;
-                _StopFall = true;
-                _WallRun = true;
+                MaxRun_Speed = 20.0f;
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                RaycastHit hit;
 
+                Ray rayRight = new Ray(transform.position, transform.right);
+                Ray rayLeft = new Ray(transform.position, -transform.right);
+                Debug.DrawRay(transform.position, transform.right);
+                Debug.DrawRay(transform.position, -transform.right);
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                if (Physics.Raycast(rayRight, out hit) && hit.collider.CompareTag("Floor") && hit.distance < 1 && _VerticalVelocity <= 0)
+                {
+                    //_movement = transform.right;
+                    this.transform.localScale = new Vector3(1, 1, 1);
+                    _DJump = false;
+                    _StopFall = true;
+                    _WallRun = true;
+                }
+                else if (Physics.Raycast(rayLeft, out hit) && hit.collider.CompareTag("Floor") && hit.distance < 1 && _VerticalVelocity <= 0)
+                {
+                    this.transform.localScale = new Vector3(-1, 1, 1);
+                    //_movement = transform.right;
+                    _DJump = false;
+                    _StopFall = true;
+                    _WallRun = true;
+
+                }
+                else
+                {
+                    _StopFall = false;
+                    _WallRun = false;
+
+                }
             }
             else
             {
-                print("Release");
                 _StopFall = false;
                 _WallRun = false;
+                MaxRun_Speed = 15.0f;
+                this.transform.localScale = new Vector3(1, 1, 1);
+            }
+            //Is the character grounded////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if (_Controller.isGrounded)
+            {
+                _StopFall = false;
+
+                _DJump = false;
+                //apply some gravity to ensure player sticks to grond
+                _VerticalVelocity = -gravity * Time.deltaTime;
+
+                //Handle Ground Pound Movement
+                if (GroundPoundactive == true && _Controller.isGrounded == true)
+                {
+                    if (_freeTimer <= _freeTimerMax)
+                    {
+                        _freeTimer += 1 * Time.deltaTime;
+                        _Forward_speed = 0;
+                    }
+                    else
+                    {
+                        _freezeMovement = false;
+                        _GroundPoundactive = false;
+                        _GroundPoundMove = false;
+                        _freeTimer = 0;
+                    }
+                }
 
             }
-        }
-        else
-        {
-            _StopFall = false;
-            _WallRun = false;
-            MaxRun_Speed = 15.0f;
-            this.transform.localScale = new Vector3(1, 1, 1);
-        }
-        //Is the character grounded////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        if (_Controller.isGrounded)
-        {
-            _StopFall = false;
-
-            _DJump = false;
-            //apply some gravity to ensure player sticks to grond
-            _VerticalVelocity = -gravity * Time.deltaTime;
-            
-            //Handle Ground Pound Movement
-            if (GroundPoundactive == true && _Controller.isGrounded == true)
+            else
             {
-                if (_freeTimer <= _freeTimerMax)
+                if (GroundPoundactive == true)
                 {
-                    _freeTimer += 1 * Time.deltaTime;
+                    if (_GroundPoundMove == true)
+                    {
+                        transform.Translate(Vector3.forward);
+                    }
+                    _freezeMovement = true;
                     _Forward_speed = 0;
                 }
-                else
+                if (_StopFall == false)
                 {
-                    freezeMovement = false;
-                    _GroundPoundactive = false;
-                    _GroundPoundMove = false;
-                    _freeTimer = 0;
-                }
-            }
-           
-        }
-        else
-        {
-            if (GroundPoundactive == true )
-            {
-                if (_GroundPoundMove == true)
-                {
-                    transform.Translate(Vector3.forward);
-                }
-                _freezeMovement = true;
-                _Forward_speed = 0;
-            }
-            if (_StopFall == false )
-            {
-                if (_VerticalVelocity < 0)
-                {
-                    _VerticalVelocity -= (gravity * (fallMultiplier) * Time.deltaTime);
+                    if (_VerticalVelocity < 0)
+                    {
+                        _VerticalVelocity -= (gravity * (fallMultiplier) * Time.deltaTime);
+                    }
+                    else
+                    {
+                        _VerticalVelocity -= gravity * Time.deltaTime;
+                    }
                 }
                 else
                 {
-                    _VerticalVelocity -= gravity * Time.deltaTime;
+                    _VerticalVelocity = 0;
+                }
+
+            }
+
+            //Jump
+            if (HyperShield == false)
+                JumpAction(jumpForce);
+
+
+            //Character _movement//////////////////////////////////////////////////////////
+            if (_freezeMovement == false || HyperShield == false)
+            {
+                input = new Vector3(Input.GetAxis(Horizontal), 0, Input.GetAxis(Vertical));
+            }
+            if (HyperShield == true)
+            {
+                _Forward_speed = 0;
+            }
+
+            if (input != Vector3.zero)
+            {
+                _inputControls = input;
+                //Increase acceleration for player. If smalller than max speed
+                if (_Forward_speed < MaxRun_Speed)
+                {
+                    if (HyperShield == false)
+                    {
+                        _Forward_speed += Acceleration;
+                    }
+                }
+                else
+                {
+                    //Else limit speed to max speed
+                    _Forward_speed = MaxRun_Speed;
                 }
             }
             else
             {
-                _VerticalVelocity = 0;
+                if (_Forward_speed > 0)
+                {
+                    _Forward_speed -= Acceleration;
+                }
+                else
+                {
+                    //Else limit speed to max speed
+                    _Forward_speed = 0;
+                }
             }
 
-        }
-
-        //Jump
-        JumpAction(jumpForce);
-
-
-        //Character _movement//////////////////////////////////////////////////////////
-        if (freezeMovement == false)
-        { 
-            input = new Vector3(Input.GetAxis(Horizontal), 0, Input.GetAxis(Vertical));
-        }
-
-
-        if (input != Vector3.zero)
-        {
-            _inputControls = input;
-            //Increase acceleration for player. If smalller than max speed
-            if (_Forward_speed < MaxRun_Speed)
+            _movement = _inputControls.normalized;
+            _movement = transform.TransformDirection(_movement);
+            //If no Input?
+            if (_movement != Vector3.zero)
             {
-                _Forward_speed += Acceleration;
+
+
             }
-            else
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //If _WallRunning, Count down
+            if (_StopFall == true)
             {
-                //Else limit speed to max speed
-                _Forward_speed = MaxRun_Speed;
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                if (Input.GetButtonDown(Jump))
+                {
+                    _StopFall = false;
+                    Launch(jumpForce);
+                }
+                if ((Input.GetButtonUp(Parkour) || Input.GetAxis(Parkour) < 0.5))
+                {
+                    _StopFall = false;
+
+                }
             }
+
+            //_movement
+            UpdateMovement();
         }
-        else
-        {
-            if (_Forward_speed > 0)
-            {
-                _Forward_speed -= Acceleration;
-            }
-            else
-            {
-                //Else limit speed to max speed
-                _Forward_speed = 0;
-            }
-        }
-        _movement = _inputControls.normalized;
-        _movement = transform.TransformDirection(_movement);
-        //If no Input?
-        if (_movement != Vector3.zero)
-        {
-
-
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //If _WallRunning, Count down
-        if (_StopFall == true)
-        {
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if (Input.GetButtonDown(Jump))
-            {
-                _StopFall = false;
-                Launch(jumpForce);
-            }
-            if ((Input.GetButtonUp(Parkour) || Input.GetAxis(Parkour) < 0.5))
-            {
-                _StopFall = false;
-
-            }
-        }
-
-        //_movement
-        UpdateMovement();
     }
     //Updates _movement when called.
     public void UpdateMovement()
@@ -251,7 +261,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "JumpPad")
         {
-            freezeMovement = false;
+            _freezeMovement = false;
             _GroundPoundactive = false;
             _GroundPoundMove = false;
             _StopFall = false;

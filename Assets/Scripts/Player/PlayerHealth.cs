@@ -119,83 +119,86 @@ public class PlayerHealth : MonoBehaviour
     //Damage Handling
     public void AddDamage(float damage,GameObject Attacker)
     {
-        ShieldRecovery = 0;
-        if (Shield <= 0)
+        if (GetComponent<PlayerMovement>().HyperShield == false)
         {
-            //If player has regular Armour, Half the Damage
-            if (HeavyArmour == false && _Armour > 0)
+            ShieldRecovery = 0;
+            if (Shield <= 0)
             {
-                _Health -= Mathf.RoundToInt(damage / 2);
-                _Armour -= damage;
-                if (_Armour < 0)
+                //If player has regular Armour, Half the Damage
+                if (HeavyArmour == false && _Armour > 0)
                 {
-                    _Armour = 0;
+                    _Health -= Mathf.RoundToInt(damage / 2);
+                    _Armour -= damage;
+                    if (_Armour < 0)
+                    {
+                        _Armour = 0;
+                    }
+                }
+                //If heavy Armour, Divide the damage by a third
+                else if (HeavyArmour == true && _Armour > 0)
+                {
+                    _Health -= Mathf.RoundToInt(damage / 3);
+                    _Armour -= damage;
+                    if (_Armour < 0)
+                    {
+                        _Armour = 0;
+                    }
+                }
+                //Player takes full damage
+                else
+                {
+                    Health -= damage;
                 }
             }
-            //If heavy Armour, Divide the damage by a third
-            else if (HeavyArmour == true && _Armour > 0)
-            {
-                _Health -= Mathf.RoundToInt(damage / 3);
-                _Armour -= damage;
-                if (_Armour < 0)
-                {
-                    _Armour = 0;
-                }
-            }
-            //Player takes full damage
             else
             {
-                Health -= damage;
-            }
-        }
-        else
-        {
-            Shield -= damage;
-            if (Shield <0)
-            {
-                ShieldNegative = Shield * -1;
-                Shield = 0;
-                _Health -= ShieldNegative;
-
-            }
-        }
-        //Destroy the Player if No Health
-        if (_Health <=0)
-        {
-            //Allow option for Penalties for being fragged. This will only be called if the player was attacked by another player.
-            if (Attacker != null)
-            {
-                switch (PlayerNumber)
+                Shield -= damage;
+                if (Shield < 0)
                 {
-                    default:
-                        {
-                            break;
-                        }
-                    case 1:
-                        {
-                            MatchController.GetComponent<GameController>().UpdateScore(1, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
-                            break;
-                        }
-                    case 2:
-                        {
-                            MatchController.GetComponent<GameController>().UpdateScore(2, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
-                            break;
-                        }
-                    case 3:
-                        {
-                            MatchController.GetComponent<GameController>().UpdateScore(3, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
-                            break;
-                        }
-                    case 4:
-                        {
-                            MatchController.GetComponent<GameController>().UpdateScore(4, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
-                            break;
-                        }
+                    ShieldNegative = Shield * -1;
+                    Shield = 0;
+                    _Health -= ShieldNegative;
+
                 }
             }
-            //No Health Destroys the Player
-            Destroy(gameObject);
-        }   
+            //Destroy the Player if No Health
+            if (_Health <= 0)
+            {
+                //Allow option for Penalties for being fragged. This will only be called if the player was attacked by another player.
+                if (Attacker != null)
+                {
+                    switch (PlayerNumber)
+                    {
+                        default:
+                            {
+                                break;
+                            }
+                        case 1:
+                            {
+                                MatchController.GetComponent<GameController>().UpdateScore(1, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
+                                break;
+                            }
+                        case 2:
+                            {
+                                MatchController.GetComponent<GameController>().UpdateScore(2, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
+                                break;
+                            }
+                        case 3:
+                            {
+                                MatchController.GetComponent<GameController>().UpdateScore(3, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
+                                break;
+                            }
+                        case 4:
+                            {
+                                MatchController.GetComponent<GameController>().UpdateScore(4, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
+                                break;
+                            }
+                    }
+                }
+                //No Health Destroys the Player
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
