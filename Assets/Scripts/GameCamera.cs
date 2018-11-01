@@ -8,8 +8,8 @@ public class GameCamera : MonoBehaviour
     public Transform target;
     public GameObject Player;
 
-    public string Ability1;
-    public string Ability2;
+    public string Ability1 = "Teleport";
+    public string Ability2 = "EnergyBall";
 
     public Transform Respawntarget;
     public GameObject RespawnPlayer;

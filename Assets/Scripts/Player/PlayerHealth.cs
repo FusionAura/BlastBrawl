@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public Slider HealthBar;
+
+
+
+
     public float MaxHealth = 100;
-    public float HealthMaxValue = 200;
+    public float HealthMaxValue = 200; 
     public float ArmourMax = 125;
-    public float ArmourMaxValue = 200;
+    public float ArmourMaxValue = 200; 
     public bool HeavyArmour = false;
 
     public float ShieldMax = 50;
@@ -36,6 +42,7 @@ public class PlayerHealth : MonoBehaviour
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    
     PlayerOffense OffenseScript;
 
 
@@ -78,6 +85,7 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+        HealthBar.value = _Health / MaxHealth*100;
         //If Health is Larger than the maximum amount of Health, deplete health slowly back to the max
         if (_Health > MaxHealth)
         {

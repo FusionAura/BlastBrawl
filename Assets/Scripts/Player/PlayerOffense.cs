@@ -109,8 +109,8 @@ public class PlayerOffense : MonoBehaviour {
     private float TeleportDistanceVal = 0f; //The distance the player will travel
     private float TeleportDistanceSpeed = 1f; //
     private float TeleportDamageRadius = 32f;
-    private float TeleportDamage = 25f;
-    private float TeleportMP = 30f;
+    private float TeleportDamage = 15f;
+    private float TeleportMP = 35f;
     private bool stopRay = false;
     public GameObject TeleportTarget;
     private bool TeleportHold = false;
