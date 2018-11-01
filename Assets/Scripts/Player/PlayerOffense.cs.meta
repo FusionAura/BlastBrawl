@@ -1,11 +1,16 @@
 fileFormatVersion: 2
 guid: 4027e5a51881708408f480469e33d41a
-timeCreated: 1535285943
+timeCreated: 1541049437
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bulletPrefab: {instanceID: 0}
+  - bulletSpawn: {instanceID: 0}
+  - TeleportTarget: {fileID: 1243219321262248, guid: 17e7d95875011c24985542e70ae986f9,
+      type: 2}
+  - sword: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

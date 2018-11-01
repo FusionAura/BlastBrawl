@@ -1,8 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
+
+    public GameObject Player1Win;
+    public GameObject Player2Win;
+    public GameObject Player3Win;
+    public GameObject Player4Win;
+
+    public float RoundCountdown = 7f;
+
+    public bool Freeze = false;
 
     public int P1_Score;
     public int P2_Score;
@@ -22,7 +32,18 @@ public class GameController : MonoBehaviour {
     {
         playerCount = GetComponent<PreGameSetup>();
     }
-	
+    private void Update()
+    {
+        if (Freeze == true)
+        {
+            RoundCountdown -= 1 * Time.deltaTime;
+            if (RoundCountdown <= 0)
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+        }
+
+    }
     //Update the Score. First to get to the score limit wins
     public void UpdateScore(int PlayerNum,int Multiplier)
     {
@@ -56,23 +77,24 @@ public class GameController : MonoBehaviour {
 
         if (P1_Score >= WinScore)
         {
-
+            Player1Win.SetActive(true);
+            Freeze = true;
         }
         else if (P2_Score >= WinScore)
         {
-
+            Player2Win.SetActive(true);
+            Freeze = true;
         }
         else if (P3_Score >= WinScore)
         {
-
+            Player3Win.SetActive(true);
+            Freeze = true;
         }
         else if (P4_Score >= WinScore)
         {
+            Player4Win.SetActive(true);
+            Freeze = true;
+        }
 
-        }
-        else
-        {
-            print("No winner");
-        }
     }
 }

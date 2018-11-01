@@ -55,8 +55,7 @@ public class PathFollower : MonoBehaviour {
 
             if (CurrentNode > 7)
             {
-                MainMenu.SetActive(false);
-                LobbyMenu.SetActive(true);
+
             }
             if (Player.transform.position != CurrentPositionHolder)
             {
@@ -84,8 +83,7 @@ public class PathFollower : MonoBehaviour {
 
             if (CurrentNode < 7)
             {
-                MainMenu.SetActive(true);
-                LobbyMenu.SetActive(false);
+
             }
             if (Player.transform.position != CurrentPositionHolder)
             {

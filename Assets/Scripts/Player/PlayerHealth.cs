@@ -78,24 +78,6 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        //If the player has been poisoned
-        if (_poison == true)
-        {
-            if (_poisonTimer < _poisonTimerMax)
-            {
-                //Damage Player via Poison. Increase Poison Timer
-                _poisonTimer += 1 * Time.deltaTime;
-                _Health -= (1* _poisonStack) * Time.deltaTime;
-            }
-            else
-            {
-                //Reset Poison Timer
-                _poison = false;
-                _poisonTimer = 0;
-            }
-        }
-
-
         //If Health is Larger than the maximum amount of Health, deplete health slowly back to the max
         if (_Health > MaxHealth)
         {
@@ -137,83 +119,86 @@ public class PlayerHealth : MonoBehaviour
     //Damage Handling
     public void AddDamage(float damage,GameObject Attacker)
     {
-        ShieldRecovery = 0;
-        if (Shield <= 0)
+        if (GetComponent<PlayerMovement>().HyperShield == false)
         {
-            //If player has regular Armour, Half the Damage
-            if (HeavyArmour == false && _Armour > 0)
+            ShieldRecovery = 0;
+            if (Shield <= 0)
             {
-                _Health -= Mathf.RoundToInt(damage / 2);
-                _Armour -= damage;
-                if (_Armour < 0)
+                //If player has regular Armour, Half the Damage
+                if (HeavyArmour == false && _Armour > 0)
                 {
-                    _Armour = 0;
+                    _Health -= Mathf.RoundToInt(damage / 2);
+                    _Armour -= damage;
+                    if (_Armour < 0)
+                    {
+                        _Armour = 0;
+                    }
+                }
+                //If heavy Armour, Divide the damage by a third
+                else if (HeavyArmour == true && _Armour > 0)
+                {
+                    _Health -= Mathf.RoundToInt(damage / 3);
+                    _Armour -= damage;
+                    if (_Armour < 0)
+                    {
+                        _Armour = 0;
+                    }
+                }
+                //Player takes full damage
+                else
+                {
+                    Health -= damage;
                 }
             }
-            //If heavy Armour, Divide the damage by a third
-            else if (HeavyArmour == true && _Armour > 0)
-            {
-                _Health -= Mathf.RoundToInt(damage / 3);
-                _Armour -= damage;
-                if (_Armour < 0)
-                {
-                    _Armour = 0;
-                }
-            }
-            //Player takes full damage
             else
             {
-                Health -= damage;
-            }
-        }
-        else
-        {
-            Shield -= damage;
-            if (Shield <0)
-            {
-                ShieldNegative = Shield * -1;
-                Shield = 0;
-                _Health -= ShieldNegative;
-
-            }
-        }
-        //Destroy the Player if No Health
-        if (_Health <=0)
-        {
-            //Allow option for Penalties for being fragged. This will only be called if the player was attacked by another player.
-            if (Attacker != null)
-            {
-                switch (PlayerNumber)
+                Shield -= damage;
+                if (Shield < 0)
                 {
-                    default:
-                        {
-                            break;
-                        }
-                    case 1:
-                        {
-                            MatchController.GetComponent<GameController>().UpdateScore(1, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
-                            break;
-                        }
-                    case 2:
-                        {
-                            MatchController.GetComponent<GameController>().UpdateScore(2, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
-                            break;
-                        }
-                    case 3:
-                        {
-                            MatchController.GetComponent<GameController>().UpdateScore(3, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
-                            break;
-                        }
-                    case 4:
-                        {
-                            MatchController.GetComponent<GameController>().UpdateScore(4, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
-                            break;
-                        }
+                    ShieldNegative = Shield * -1;
+                    Shield = 0;
+                    _Health -= ShieldNegative;
+
                 }
             }
-            //No Health Destroys the Player
-            Destroy(gameObject);
-        }   
+            //Destroy the Player if No Health
+            if (_Health <= 0)
+            {
+                //Allow option for Penalties for being fragged. This will only be called if the player was attacked by another player.
+                if (Attacker != null)
+                {
+                    switch (PlayerNumber)
+                    {
+                        default:
+                            {
+                                break;
+                            }
+                        case 1:
+                            {
+                                MatchController.GetComponent<GameController>().UpdateScore(1, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
+                                break;
+                            }
+                        case 2:
+                            {
+                                MatchController.GetComponent<GameController>().UpdateScore(2, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
+                                break;
+                            }
+                        case 3:
+                            {
+                                MatchController.GetComponent<GameController>().UpdateScore(3, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
+                                break;
+                            }
+                        case 4:
+                            {
+                                MatchController.GetComponent<GameController>().UpdateScore(4, (-1 * MatchController.GetComponent<GameController>().FraggedPenalties));
+                                break;
+                            }
+                    }
+                }
+                //No Health Destroys the Player
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -318,30 +303,5 @@ public class PlayerHealth : MonoBehaviour
         set { _Mana = value; }
     }
 
-    //Public Booleans for Status Ailments
-    public bool Bleed
-    {
-        get { return _bleed; }
-        set { _bleed = value; }
-    }
-    public bool Poison
-    {
-        get { return _poison; }
-        set { _poison = value; }
-    }
-    public bool Chill
-    {
-        get { return _chill; }
-        set { _chill = value; }
-    }
-    public bool Ignite
-    {
-        get { return _ignite; }
-        set { _ignite = value; }
-    }
-    public bool Silence
-    {
-        get { return _silence; }
-        set { _silence = value; }
-    }
+ 
 }

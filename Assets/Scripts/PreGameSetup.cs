@@ -17,13 +17,11 @@ public class PreGameSetup : MonoBehaviour {
     public int PlayerCount = 1;
 
 
+
+
     // Use this for initialization
     void Start()
     {
-        // if (GameObject.Find("Player1Cam") != null)
-        //{
-        //it exists
-        //}
         //Set Screen Size for players
         switch (PlayerCount)
         {

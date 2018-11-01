@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: c42c2d4d345a5f849af56162be875ae6
+timeCreated: 1541091221
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: ROG Fonts v1.6
+  fontNames:
+  - ROG Fonts v1.6
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

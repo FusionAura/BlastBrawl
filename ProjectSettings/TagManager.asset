@@ -17,6 +17,11 @@ TagManager:
   - RespawnPoint
   - KillPlane
   - EnergyBall
+  - Sword
+  - Teleport1
+  - Teleport2
+  - Teleport3
+  - Teleport4
   layers:
   - Default
   - TransparentFX
@@ -26,10 +31,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Player1
+  - Player2
+  - Player3
+  - Player4
   - 
   - 
   - 

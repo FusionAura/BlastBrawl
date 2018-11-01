@@ -7,7 +7,7 @@ public class ArmourBoost : MonoBehaviour {
     public float ArmourGain = 25;
     public float RespawnTimeMax = 32;
     public bool Heavy = false;
-
+    public bool collected = false;
     private float RespawnTime = 12;
     private Vector3 StartPosition;
     // Use this for initialization
@@ -16,25 +16,32 @@ public class ArmourBoost : MonoBehaviour {
         StartPosition = transform.position;
     }
 
+
     // Update is called once per frame
     void Update()
     {
-        if (RespawnTime < RespawnTimeMax)
+        if (collected == true)
         {
-            RespawnTime += 1 * Time.deltaTime;
-        }
-        else
-        {
-            transform.position = StartPosition;
-            RespawnTime = RespawnTimeMax;
+            if (RespawnTime < RespawnTimeMax)
+            {
+                RespawnTime += 1 * Time.deltaTime;
+            }
+            else
+            {
+                transform.position = StartPosition;
+                RespawnTime = RespawnTimeMax;
+                collected = false;
+            }
         }
     }
     void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.tag == "Player")
         {
+            collected = true;
             transform.position = new Vector3(9990.0f, 9999.0f, 9990.0f);
             RespawnTime = 0;
         }
     }
+
 }
