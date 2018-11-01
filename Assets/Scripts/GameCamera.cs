@@ -79,8 +79,8 @@ public class GameCamera : MonoBehaviour
                 //Reset Respawn Timer and create the player object again
                 RespawnTimer = 0;
                 Player=Instantiate(RespawnPlayer, currentPoint.transform.position, currentPoint.transform.rotation);
-                Player.GetComponent<PlayerOffense>().Ability1 = Ability1;
-                Player.GetComponent<PlayerOffense>().Ability2 = Ability2;
+                Player.GetComponent<PlayerOffense>().Ability1Name = Ability1;
+                Player.GetComponent<PlayerOffense>().Ability2Name = Ability2;
                 //Player.transform.y = currentPoint.transform.y + 32;
 
                 //Set variables for the player and Camera

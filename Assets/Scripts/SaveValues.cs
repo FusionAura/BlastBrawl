@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 public class SaveValues : MonoBehaviour {
 
 
-    public float playerCount = 0;
+    public float playerCount = 3;
     private GameObject gameControllerObject;
+    
     private Scene m_Scene;
 
     public string Player1Ability1 = "Teleport";

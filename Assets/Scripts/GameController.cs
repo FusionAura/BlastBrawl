@@ -10,6 +10,9 @@ public class GameController : MonoBehaviour {
     public GameObject Player3Win;
     public GameObject Player4Win;
 
+    public AudioClip RoundEnd;
+    public AudioSource audioSource;
+
     public float RoundCountdown = 7f;
 
     public bool Freeze = false;
@@ -31,6 +34,7 @@ public class GameController : MonoBehaviour {
     void Start ()
     {
         playerCount = GetComponent<PreGameSetup>();
+        audioSource = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -79,21 +83,25 @@ public class GameController : MonoBehaviour {
         {
             Player1Win.SetActive(true);
             Freeze = true;
+            audioSource.PlayOneShot(RoundEnd, 0.7F);
         }
         else if (P2_Score >= WinScore)
         {
             Player2Win.SetActive(true);
             Freeze = true;
+            audioSource.PlayOneShot(RoundEnd, 0.7F);
         }
         else if (P3_Score >= WinScore)
         {
             Player3Win.SetActive(true);
             Freeze = true;
+            audioSource.PlayOneShot(RoundEnd, 0.7F);
         }
         else if (P4_Score >= WinScore)
         {
             Player4Win.SetActive(true);
             Freeze = true;
+            audioSource.PlayOneShot(RoundEnd, 0.7F);
         }
 
     }
