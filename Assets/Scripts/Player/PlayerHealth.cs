@@ -14,6 +14,9 @@ public class PlayerHealth : MonoBehaviour
     public Image CurrentArmourBar;
     public Text ArmourRatioText;
 
+    public GameObject Disable;
+    public GameObject Disable2;
+
     public float MaxHealth = 100;
     public float HealthMaxValue = 200; 
     public float ArmourMax = 125;
@@ -55,6 +58,8 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         MatchController = GameObject.FindWithTag("GameController");
+        Disable = GameObject.FindWithTag("P3HudRemove");
+        Disable2 = GameObject.FindWithTag("P4HudRemove");
         OffenseScript = GetComponent<PlayerOffense>();
         PlayerNumber = OffenseScript.PlayerNumber;
         switch (PlayerNumber)
@@ -89,27 +94,34 @@ public class PlayerHealth : MonoBehaviour
             }
         case 3:
             {
-                CurrentHealthBar = GameObject.FindWithTag("P3HP").GetComponent<Image>();
-                RatioText = GameObject.FindWithTag("P3HPRatio").GetComponent<Text>();
+                    if (MatchController.GetComponent<PreGameSetup>().PlayerCount > 1)
+                    {
+                        CurrentHealthBar = GameObject.FindWithTag("P3HP").GetComponent<Image>();
+                        RatioText = GameObject.FindWithTag("P3HPRatio").GetComponent<Text>();
 
-                CurrentManaBar = GameObject.FindWithTag("P3MP").GetComponent<Image>();
-                ManaRatioText = GameObject.FindWithTag("P3MPRatio").GetComponent<Text>();
+                        CurrentManaBar = GameObject.FindWithTag("P3MP").GetComponent<Image>();
+                        ManaRatioText = GameObject.FindWithTag("P3MPRatio").GetComponent<Text>();
 
-                CurrentArmourBar = GameObject.FindWithTag("P3Armour").GetComponent<Image>();
-                ArmourRatioText = GameObject.FindWithTag("P3ArmourRatio").GetComponent<Text>();
-                break;
+                        CurrentArmourBar = GameObject.FindWithTag("P3Armour").GetComponent<Image>();
+                        ArmourRatioText = GameObject.FindWithTag("P3ArmourRatio").GetComponent<Text>();
+                    }
+                    break;
             }
         case 4:
             {
-                CurrentHealthBar = GameObject.FindWithTag("P4HP").GetComponent<Image>();
-                RatioText = GameObject.FindWithTag("P4HPRatio").GetComponent<Text>();
+                    if (MatchController.GetComponent<PreGameSetup>().PlayerCount > 2)
+                    {
+                        CurrentHealthBar = GameObject.FindWithTag("P4HP").GetComponent<Image>();
+                        RatioText = GameObject.FindWithTag("P4HPRatio").GetComponent<Text>();
 
-                CurrentManaBar = GameObject.FindWithTag("P4MP").GetComponent<Image>();
-                ManaRatioText = GameObject.FindWithTag("P4MPRatio").GetComponent<Text>();
+                        CurrentManaBar = GameObject.FindWithTag("P4MP").GetComponent<Image>();
+                        ManaRatioText = GameObject.FindWithTag("P4MPRatio").GetComponent<Text>();
 
-                CurrentArmourBar = GameObject.FindWithTag("P4Armour").GetComponent<Image>();
-                ArmourRatioText = GameObject.FindWithTag("P4ArmourRatio").GetComponent<Text>();
-                break;
+                        CurrentArmourBar = GameObject.FindWithTag("P4Armour").GetComponent<Image>();
+                        ArmourRatioText = GameObject.FindWithTag("P4ArmourRatio").GetComponent<Text>();
+                        
+                    }
+                    break;
             }
         }
 

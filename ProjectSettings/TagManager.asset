@@ -47,6 +47,8 @@ TagManager:
   - P4MPRatio
   - P4Armour
   - P4ArmourRatio
+  - P3HudRemove
+  - P4HudRemove
   layers:
   - Default
   - TransparentFX

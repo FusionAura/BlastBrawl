@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class GameCamera : MonoBehaviour
 {
+    public Texture2D crosshairImage;
+    public float cursorPosX = 4f;
+    public float cursorPosY = 4f;
     public bool HideCursor;
     public Transform target;
     public GameObject Player;
@@ -30,7 +33,7 @@ public class GameCamera : MonoBehaviour
 
     public Vector2 Y_ANGLE_MIN = new Vector2(-50,50);
     public Vector2 X_ANGLE_MIN = new Vector2(-50,50);
-
+    public int playerCount;
 
     private float Pitch = 0.0f;
     private float Yaw = 0.0f;
@@ -42,6 +45,7 @@ public class GameCamera : MonoBehaviour
 
     private void Start()
     {
+        
         spawnPoints = GameObject.FindGameObjectsWithTag("RespawnPoint");
         if (HideCursor == true)
         {
@@ -90,7 +94,12 @@ public class GameCamera : MonoBehaviour
             }
         }
     }
-
+    void OnGUI() 
+    {
+        float xMin = (Screen.width / cursorPosX) - (crosshairImage.width / cursorPosX);
+        float yMin = (Screen.height / cursorPosY) - (crosshairImage.height / cursorPosY);
+        GUI.DrawTexture(new Rect(xMin, yMin, crosshairImage.width, crosshairImage.height), crosshairImage);
+    }
     private void EndMatch()
     {
         if (HideCursor == false)

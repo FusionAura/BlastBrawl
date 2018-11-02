@@ -1636,6 +1636,10 @@ Prefab:
       propertyPath: CameraT
       value: 
       objectReference: {fileID: 1336551695}
+    - target: {fileID: 4040824468048206, guid: 3447086217d32494bb8dffcc7776e254, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.324
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3447086217d32494bb8dffcc7776e254, type: 2}
   m_IsPrefabParent: 0
@@ -3245,6 +3249,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e68015934a791488f0f16dcc4c0439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crosshairImage: {fileID: 2800000, guid: 958f5db43e48cd942bec3534d65558b9, type: 3}
+  cursorPosX: 4
+  cursorPosY: 4
   HideCursor: 0
   target: {fileID: 1179185573}
   Player: {fileID: 628992833}
@@ -3264,6 +3271,7 @@ MonoBehaviour:
   rotationSmoothTime: 0.05
   Y_ANGLE_MIN: {x: -50, y: 50}
   X_ANGLE_MIN: {x: -50, y: 50}
+  playerCount: 0
 --- !u!45 &444220268
 Skybox:
   m_ObjectHideFlags: 0
@@ -8332,6 +8340,10 @@ Prefab:
       propertyPath: CameraT
       value: 
       objectReference: {fileID: 1952405466}
+    - target: {fileID: 4973314077747492, guid: ec183316231af854db59f6791f086de9, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.324
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec183316231af854db59f6791f086de9, type: 2}
   m_IsPrefabParent: 0
@@ -8660,6 +8672,10 @@ Prefab:
       propertyPath: CameraT
       value: 
       objectReference: {fileID: 1270714902}
+    - target: {fileID: 4333036592691944, guid: bb3287ab3f78fc841a41d4860dbd5d5e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.324
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bb3287ab3f78fc841a41d4860dbd5d5e, type: 2}
   m_IsPrefabParent: 0
@@ -26395,6 +26411,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e68015934a791488f0f16dcc4c0439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crosshairImage: {fileID: 2800000, guid: 958f5db43e48cd942bec3534d65558b9, type: 3}
+  cursorPosX: 1.3
+  cursorPosY: 1.3
   HideCursor: 0
   target: {fileID: 1112627867}
   Player: {fileID: 177630954}
@@ -26414,6 +26433,7 @@ MonoBehaviour:
   rotationSmoothTime: 0.05
   Y_ANGLE_MIN: {x: -50, y: 50}
   X_ANGLE_MIN: {x: -50, y: 50}
+  playerCount: 0
 --- !u!81 &1270714899
 AudioListener:
   m_ObjectHideFlags: 0
@@ -27007,7 +27027,7 @@ Prefab:
     - target: {fileID: 114893611148379894, guid: d15720c7381949046b8d0d46db05befd,
         type: 2}
       propertyPath: PlayerCount
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114747695850379940, guid: d15720c7381949046b8d0d46db05befd,
         type: 2}
@@ -27232,6 +27252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e68015934a791488f0f16dcc4c0439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crosshairImage: {fileID: 2800000, guid: 958f5db43e48cd942bec3534d65558b9, type: 3}
+  cursorPosX: 4
+  cursorPosY: 1.3
   HideCursor: 0
   target: {fileID: 103350676}
   Player: {fileID: 439141466}
@@ -27251,6 +27274,7 @@ MonoBehaviour:
   rotationSmoothTime: 0.05
   Y_ANGLE_MIN: {x: -50, y: 50}
   X_ANGLE_MIN: {x: -50, y: 50}
+  playerCount: 0
 --- !u!81 &1336551692
 AudioListener:
   m_ObjectHideFlags: 0
@@ -41016,6 +41040,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e68015934a791488f0f16dcc4c0439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crosshairImage: {fileID: 2800000, guid: 958f5db43e48cd942bec3534d65558b9, type: 3}
+  cursorPosX: 1.3
+  cursorPosY: 4
   HideCursor: 0
   target: {fileID: 1862198892}
   Player: {fileID: 575283364}
@@ -41035,6 +41062,7 @@ MonoBehaviour:
   rotationSmoothTime: 0.05
   Y_ANGLE_MIN: {x: -50, y: 50}
   X_ANGLE_MIN: {x: -50, y: 50}
+  playerCount: 0
 --- !u!81 &1952405463
 AudioListener:
   m_ObjectHideFlags: 0

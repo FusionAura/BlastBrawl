@@ -73,7 +73,18 @@ public class SaveValues : MonoBehaviour {
             {
                 gameControllerObject.GetComponent<PreGameSetup>().Cam2.rect = new Rect(0f, 0f, 1f, .5f);
             }
-            
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam1.GetComponent<GameCamera>().cursorPosX = 2;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam1.GetComponent<GameCamera>().cursorPosY = 4;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam2.GetComponent<GameCamera>().cursorPosX =2f;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam2.GetComponent<GameCamera>().cursorPosY = 1.3f;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam3.GetComponent<GameCamera>().cursorPosX = 0;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam3.GetComponent<GameCamera>().cursorPosY = 0f;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam4.GetComponent<GameCamera>().cursorPosX = 0f;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam4.GetComponent<GameCamera>().cursorPosY = 0f;
         }
         else if (playerCount == 2)
         {
@@ -98,6 +109,18 @@ public class SaveValues : MonoBehaviour {
             {
                 gameControllerObject.GetComponent<PreGameSetup>().Cam3.rect = new Rect(0f, 0f, .5f, .5f);
             }
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam1.GetComponent<GameCamera>().cursorPosX = 4;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam1.GetComponent<GameCamera>().cursorPosY = 4;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam2.GetComponent<GameCamera>().cursorPosX = 1.3f;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam2.GetComponent<GameCamera>().cursorPosY = 4;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam3.GetComponent<GameCamera>().cursorPosX = 4;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam3.GetComponent<GameCamera>().cursorPosY = 1.3f;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam4.GetComponent<GameCamera>().cursorPosX = 0f;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam4.GetComponent<GameCamera>().cursorPosY = 0f;
         }
         else if (playerCount == 3)
         {
@@ -124,6 +147,18 @@ public class SaveValues : MonoBehaviour {
             {
                 gameControllerObject.GetComponent<PreGameSetup>().Cam4.rect = new Rect(.5f, 0f, .5f, .5f);
             }
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam1.GetComponent<GameCamera>().cursorPosX = 4;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam1.GetComponent<GameCamera>().cursorPosY = 4;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam2.GetComponent<GameCamera>().cursorPosX = 1.3f;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam2.GetComponent<GameCamera>().cursorPosY = 4;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam3.GetComponent<GameCamera>().cursorPosX = 4;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam3.GetComponent<GameCamera>().cursorPosY = 1.3f;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam4.GetComponent<GameCamera>().cursorPosX = 1.3f;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam4.GetComponent<GameCamera>().cursorPosY = 1.3f;
         }
         else if (playerCount == 0)
         {
@@ -150,6 +185,18 @@ public class SaveValues : MonoBehaviour {
             {
                 gameControllerObject.GetComponent<PreGameSetup>().Cam4.rect = new Rect(.5f, 0f, .5f, .5f);
             }
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam1.GetComponent<GameCamera>().cursorPosX = 4;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam1.GetComponent<GameCamera>().cursorPosY = 4;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam2.GetComponent<GameCamera>().cursorPosX = 1.3f;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam2.GetComponent<GameCamera>().cursorPosY = 4;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam3.GetComponent<GameCamera>().cursorPosX = 4;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam3.GetComponent<GameCamera>().cursorPosY = 1.3f;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam4.GetComponent<GameCamera>().cursorPosX = 1.3f;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam4.GetComponent<GameCamera>().cursorPosY = 1.3f;
         }
         else
         {
@@ -176,6 +223,24 @@ public class SaveValues : MonoBehaviour {
             {
                 gameControllerObject.GetComponent<PreGameSetup>().Cam4.rect = new Rect(.5f, 0f, .5f, .5f);
             }
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam1.GetComponent<GameCamera>().cursorPosX = 4;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam1.GetComponent<GameCamera>().cursorPosY = 4;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam2.GetComponent<GameCamera>().cursorPosX = 1.3f;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam2.GetComponent<GameCamera>().cursorPosY = 4;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam3.GetComponent<GameCamera>().cursorPosX = 4;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam3.GetComponent<GameCamera>().cursorPosY = 1.3f;
+
+            gameControllerObject.GetComponent<PreGameSetup>().Cam4.GetComponent<GameCamera>().cursorPosX = 1.3f;
+            gameControllerObject.GetComponent<PreGameSetup>().Cam4.GetComponent<GameCamera>().cursorPosY = 1.3f;
+
+
+
+
+
+
 
         }
         Destroy(gameObject);
