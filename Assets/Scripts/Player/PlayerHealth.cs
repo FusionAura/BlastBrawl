@@ -5,7 +5,14 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public Image CurrentHealthBar;
+    public Text RatioText;
 
+    public Image CurrentManaBar;
+    public Text ManaRatioText;
+
+    public Image CurrentArmourBar;
+    public Text ArmourRatioText;
 
     public float MaxHealth = 100;
     public float HealthMaxValue = 200; 
@@ -24,7 +31,7 @@ public class PlayerHealth : MonoBehaviour
     private float _Mana = 100;
     private float _ManaMax = 100;
     private float ShieldRecovery = 0f;
-    private float Shield = 50;
+    private float Shield = 0;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private bool _poison = false;
@@ -36,10 +43,12 @@ public class PlayerHealth : MonoBehaviour
     private bool _chill = false;
     private bool _ignite = false;
     private bool _silence = false;
-
+    public float ratio;
+    public float ratioMP;
+    public float ratioArmour;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    
+
     PlayerOffense OffenseScript;
 
 
@@ -48,6 +57,65 @@ public class PlayerHealth : MonoBehaviour
         MatchController = GameObject.FindWithTag("GameController");
         OffenseScript = GetComponent<PlayerOffense>();
         PlayerNumber = OffenseScript.PlayerNumber;
+        switch (PlayerNumber)
+        {
+        default:
+            {
+                break;
+            }
+        case 1:
+            {
+                CurrentHealthBar = GameObject.FindWithTag("P1HP").GetComponent<Image>();
+                RatioText = GameObject.FindWithTag("P1HPRatio").GetComponent<Text>();
+
+                CurrentManaBar = GameObject.FindWithTag("P1MP").GetComponent<Image>();
+                ManaRatioText = GameObject.FindWithTag("P1MPRatio").GetComponent<Text>();
+
+                CurrentArmourBar = GameObject.FindWithTag("P1Armour").GetComponent<Image>();
+                ArmourRatioText = GameObject.FindWithTag("P1ArmourRatio").GetComponent<Text>();
+                break;
+            }
+        case 2:
+            {
+                CurrentHealthBar = GameObject.FindWithTag("P2HP").GetComponent<Image>();
+                RatioText = GameObject.FindWithTag("P2HPRatio").GetComponent<Text>();
+
+                CurrentManaBar = GameObject.FindWithTag("P2MP").GetComponent<Image>();
+                ManaRatioText = GameObject.FindWithTag("P2MPRatio").GetComponent<Text>();
+
+                CurrentArmourBar = GameObject.FindWithTag("P2Armour").GetComponent<Image>();
+                ArmourRatioText = GameObject.FindWithTag("P2ArmourRatio").GetComponent<Text>();
+                break;
+            }
+        case 3:
+            {
+                CurrentHealthBar = GameObject.FindWithTag("P3HP").GetComponent<Image>();
+                RatioText = GameObject.FindWithTag("P3HPRatio").GetComponent<Text>();
+
+                CurrentManaBar = GameObject.FindWithTag("P3MP").GetComponent<Image>();
+                ManaRatioText = GameObject.FindWithTag("P3MPRatio").GetComponent<Text>();
+
+                CurrentArmourBar = GameObject.FindWithTag("P3Armour").GetComponent<Image>();
+                ArmourRatioText = GameObject.FindWithTag("P3ArmourRatio").GetComponent<Text>();
+                break;
+            }
+        case 4:
+            {
+                CurrentHealthBar = GameObject.FindWithTag("P4HP").GetComponent<Image>();
+                RatioText = GameObject.FindWithTag("P4HPRatio").GetComponent<Text>();
+
+                CurrentManaBar = GameObject.FindWithTag("P4MP").GetComponent<Image>();
+                ManaRatioText = GameObject.FindWithTag("P4MPRatio").GetComponent<Text>();
+
+                CurrentArmourBar = GameObject.FindWithTag("P4Armour").GetComponent<Image>();
+                ArmourRatioText = GameObject.FindWithTag("P4ArmourRatio").GetComponent<Text>();
+                break;
+            }
+        }
+
+        
+
+
 
         switch (PlayerNumber)
         {
@@ -82,6 +150,21 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+        ratio = _Health / MaxHealth;
+        CurrentHealthBar.rectTransform.localScale = new Vector3(ratio, 1, 1);
+        RatioText.text = "HP: " + (ratio * 100).ToString() + '%';
+
+        ratioMP = _Mana / _ManaMax;
+        CurrentManaBar.rectTransform.localScale = new Vector3(ratioMP, 1, 1);
+        ManaRatioText.text = "MP: " + (ratioMP * 100).ToString() + '%';
+
+        ratioArmour = _Armour / ArmourMax;
+        CurrentArmourBar.rectTransform.localScale = new Vector3(ratioArmour, 1, 1);
+        ArmourRatioText.text = "Armour: " + (ratioArmour * 100).ToString() + '%';
+  
+
+
+
         //If Health is Larger than the maximum amount of Health, deplete health slowly back to the max
         if (_Health > MaxHealth)
         {

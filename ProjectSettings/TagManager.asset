@@ -23,6 +23,10 @@ TagManager:
   - Teleport3
   - Teleport4
   - Messenger
+  - P1HP
+  - P1MP
+  - P1Armour
+  - P1HPRatio
   layers:
   - Default
   - TransparentFX

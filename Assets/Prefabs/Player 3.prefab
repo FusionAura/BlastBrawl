@@ -1462,6 +1462,7 @@ GameObject:
   - component: {fileID: 114674869312327116}
   - component: {fileID: 114245522993871292}
   - component: {fileID: 114116276742414054}
+  - component: {fileID: 82087397571313168}
   m_Layer: 0
   m_Name: Player 3
   m_TagString: Player
@@ -3840,6 +3841,86 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1187687862834636}
   m_Mesh: {fileID: 4300002, guid: f0fa35b40e2e47044b8fd65435d75984, type: 3}
+--- !u!82 &82087397571313168
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1736319638091202}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95428253856793224
 Animator:
   serializedVersion: 3
@@ -3973,6 +4054,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4976ed2a965a97e41ae4f385c83b388b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentHealthBar: {fileID: 0}
+  RatioText: {fileID: 0}
+  CurrentManaBar: {fileID: 0}
+  ManaRatioText: {fileID: 0}
+  CurrentArmourBar: {fileID: 0}
+  ArmourRatioText: {fileID: 0}
   MaxHealth: 100
   HealthMaxValue: 200
   ArmourMax: 125
@@ -3982,6 +4069,9 @@ MonoBehaviour:
   ShieldRecoveryMax: 7
   ShieldNegative: 0
   PlayerNumber: 2
+  ratio: 0
+  ratioMP: 0
+  ratioArmour: 0
 --- !u!136 &136710698495566450
 CapsuleCollider:
   m_ObjectHideFlags: 1
