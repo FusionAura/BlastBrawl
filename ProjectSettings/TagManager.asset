@@ -27,6 +27,26 @@ TagManager:
   - P1MP
   - P1Armour
   - P1HPRatio
+  - P1MPRatio
+  - P1ArmourRatio
+  - P2HP
+  - P2MP
+  - P2Armour
+  - P2HPRatio
+  - P2MPRatio
+  - P2ArmourRatio
+  - P3HP
+  - P3HPRatio
+  - P3MP
+  - P3MPRatio
+  - P3Armour
+  - P3ArmourRatio
+  - P4HP
+  - P4HPRatio
+  - P4MP
+  - P4MPRatio
+  - P4Armour
+  - P4ArmourRatio
   layers:
   - Default
   - TransparentFX
