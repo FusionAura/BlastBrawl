@@ -50,7 +50,11 @@ public class PlayerAnimations : MonoBehaviour {
                 }
                 else
                 {
-                    animator.SetTrigger("AttackAbility");
+                    if (PlayerHealthScript.Mana >= PlayerOffenseScript.SwordMPCost)
+                    {
+                        PlayerHealthScript.Mana -= PlayerOffenseScript.SwordMPCost;
+                        animator.SetTrigger("AttackAbility");
+                    }
 
                 }
             }

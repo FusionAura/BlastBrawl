@@ -108,7 +108,7 @@ public class PlayerOffense : MonoBehaviour {
     private float TeleportDistanceMax = 100f; //the maximum distance the player will teleport
     private float TeleportDistanceVal = 0f; //The distance the player will travel
     private float TeleportDistanceSpeed = 1f; //
-    private float TeleportDamageRadius = 32f;
+    private float TeleportDamageRadius = 15f;
     private float TeleportDamage = 15f;
     private float TeleportMP = 35f;
     private bool stopRay = false;
@@ -121,7 +121,7 @@ public class PlayerOffense : MonoBehaviour {
 
     //Hyper Shield Variables
     private float HSCost = 10;
-    private float HSCostPS = 1;
+    private float HSCostPS = 2;
 
 
 
@@ -325,7 +325,7 @@ public class PlayerOffense : MonoBehaviour {
             if (PlayerHP.Mana >= HSCost)
             {
                 HyperShieldParticle.SetActive(true);
-                PlayerHP.Mana -= HSCost;
+                PlayerHP.Mana -= HSCost*Time.deltaTime;
                 HSCostPS = 0;
                 GetComponent<PlayerMovement>().HyperShield = held;
                 print(PlayerHP.Mana);
@@ -348,7 +348,7 @@ public class PlayerOffense : MonoBehaviour {
         Debug.DrawRay(transform.position, fwd * TeleportDistanceVal);
 
         //If Teleport Button is held
-        if (Held)
+        if (Held && PlayerHP.Mana >= TeleportMP)
         {
             Target.SetActive(true);
 
@@ -377,61 +377,58 @@ public class PlayerOffense : MonoBehaviour {
         }
         else if (Held == false && TeleportHold == true) //When released, teleport the distance
         {
-            if (PlayerHP.Mana >= RFCost)
+            if (PlayerHP.Mana >= TeleportMP)
             {
-                if (PlayerHP.Mana >= TeleportMP)
+                PlayerHP.Mana -= TeleportMP;
+                Collider[] hitColliders = Physics.OverlapSphere(center, radius);
+                int i = 0;
+                while (i < hitColliders.Length)
                 {
-                    PlayerHP.Mana -= TeleportMP;
-                }
-            }
-            Collider[] hitColliders = Physics.OverlapSphere(center, radius);
-            int i = 0;
-            while (i < hitColliders.Length)
-            {
-                //Is the object another player and not the caster.
-                if (hitColliders[i].CompareTag("Player") && !(hitColliders[i].gameObject == gameObject))
-                {
-                    //Gonna Change to a less intensive method. needs to send a value as well.
-                    hitColliders[i].GetComponent<PlayerHealth>().AddDamage(TeleportDamage, this.gameObject);
-
-                    hitColliders[i].GetComponent<PlayerHealth>().transform.Translate(this.transform.forward);
-                    if (hitColliders[i].GetComponent<PlayerHealth>().Health <= 0)
+                    //Is the object another player and not the caster.
+                    if (hitColliders[i].CompareTag("Player") && !(hitColliders[i].gameObject == gameObject))
                     {
-                        switch (PlayerNumber)
+                        //Gonna Change to a less intensive method. needs to send a value as well.
+                        hitColliders[i].GetComponent<PlayerHealth>().AddDamage(TeleportDamage, this.gameObject);
+
+                        hitColliders[i].GetComponent<PlayerHealth>().transform.Translate(this.transform.forward);
+                        if (hitColliders[i].GetComponent<PlayerHealth>().Health <= 0)
                         {
-                            //If Game is 2 Player
-                            default:
-                                {
-                                    break;
-                                }
-                            case 1:
-                                {
-                                    MatchController.GetComponent<GameController>().UpdateScore(1, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
-                                    break;
-                                }
-                            case 2:
-                                {
-                                    MatchController.GetComponent<GameController>().UpdateScore(2, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    MatchController.GetComponent<GameController>().UpdateScore(3, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
-                                    break;
-                                }
-                            case 4:
-                                {
-                                    MatchController.GetComponent<GameController>().UpdateScore(4, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
-                                    break;
-                                }
+                            switch (PlayerNumber)
+                            {
+                                //If Game is 2 Player
+                                default:
+                                    {
+                                        break;
+                                    }
+                                case 1:
+                                    {
+                                        MatchController.GetComponent<GameController>().UpdateScore(1, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        MatchController.GetComponent<GameController>().UpdateScore(2, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
+                                        break;
+                                    }
+                                case 3:
+                                    {
+                                        MatchController.GetComponent<GameController>().UpdateScore(3, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
+                                        break;
+                                    }
+                                case 4:
+                                    {
+                                        MatchController.GetComponent<GameController>().UpdateScore(4, (1 * MatchController.GetComponent<GameController>().Score_Modifier));
+                                        break;
+                                    }
+                            }
+
                         }
 
                     }
-
+                    //Next in Array of objects in Sphere Overlay
+                    i++;
                 }
-                //Next in Array of objects in Sphere Overlay
-                i++;
-            }
+            }   
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             transform.position = transform.position + (fwd * (TeleportDistanceVal - 5));
             TeleportHold = false;

@@ -38,6 +38,10 @@ public class GameController : MonoBehaviour {
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
         if (Freeze == true)
         {
             RoundCountdown -= 1 * Time.deltaTime;
@@ -51,10 +55,7 @@ public class GameController : MonoBehaviour {
     //Update the Score. First to get to the score limit wins
     public void UpdateScore(int PlayerNum,int Multiplier)
     {
-        if (Input.GetKeyDown("escape"))
-        {
-            Application.Quit();
-        }
+
             switch (PlayerNum)
         {
             case 1:

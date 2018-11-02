@@ -27824,6 +27824,46 @@ Prefab:
       propertyPath: m_TagString
       value: Messenger
       objectReference: {fileID: 0}
+    - target: {fileID: 114187991128856324, guid: 2c960528f69f0b44ab54a4f7ee43767f,
+        type: 2}
+      propertyPath: Player1Ability1
+      value: Teleport
+      objectReference: {fileID: 0}
+    - target: {fileID: 114187991128856324, guid: 2c960528f69f0b44ab54a4f7ee43767f,
+        type: 2}
+      propertyPath: Player2Ability1
+      value: Teleport
+      objectReference: {fileID: 0}
+    - target: {fileID: 114187991128856324, guid: 2c960528f69f0b44ab54a4f7ee43767f,
+        type: 2}
+      propertyPath: Player3Ability1
+      value: Teleport
+      objectReference: {fileID: 0}
+    - target: {fileID: 114187991128856324, guid: 2c960528f69f0b44ab54a4f7ee43767f,
+        type: 2}
+      propertyPath: Player4Ability1
+      value: Teleport
+      objectReference: {fileID: 0}
+    - target: {fileID: 114187991128856324, guid: 2c960528f69f0b44ab54a4f7ee43767f,
+        type: 2}
+      propertyPath: Player1Ability2
+      value: RighteousFire
+      objectReference: {fileID: 0}
+    - target: {fileID: 114187991128856324, guid: 2c960528f69f0b44ab54a4f7ee43767f,
+        type: 2}
+      propertyPath: Player2Ability2
+      value: RighteousFire
+      objectReference: {fileID: 0}
+    - target: {fileID: 114187991128856324, guid: 2c960528f69f0b44ab54a4f7ee43767f,
+        type: 2}
+      propertyPath: Player3Ability2
+      value: RighteousFire
+      objectReference: {fileID: 0}
+    - target: {fileID: 114187991128856324, guid: 2c960528f69f0b44ab54a4f7ee43767f,
+        type: 2}
+      propertyPath: Player4Ability2
+      value: RighteousFire
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c960528f69f0b44ab54a4f7ee43767f, type: 2}
   m_IsPrefabParent: 0
