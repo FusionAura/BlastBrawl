@@ -3022,8 +3022,8 @@ MonoBehaviour:
   HideCursor: 0
   target: {fileID: 1179185573}
   Player: {fileID: 628992833}
-  Ability1: 
-  Ability2: 
+  Ability1: Teleport
+  Ability2: RighteousFire
   Respawntarget: {fileID: 4655280855443276, guid: ba22e3f92a5e51a49b9c41b1e2428d9d,
     type: 2}
   RespawnPlayer: {fileID: 1142004962240056, guid: ba22e3f92a5e51a49b9c41b1e2428d9d,
@@ -24808,8 +24808,8 @@ MonoBehaviour:
   HideCursor: 0
   target: {fileID: 1112627867}
   Player: {fileID: 177630954}
-  Ability1: 
-  Ability2: 
+  Ability1: Teleport
+  Ability2: RighteousFire
   Respawntarget: {fileID: 4333036592691944, guid: bb3287ab3f78fc841a41d4860dbd5d5e,
     type: 2}
   RespawnPlayer: {fileID: 1622671882700852, guid: bb3287ab3f78fc841a41d4860dbd5d5e,
@@ -24885,7 +24885,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: -55.708004, z: 0}
 --- !u!45 &1270714903
 Skybox:
@@ -25394,6 +25394,99 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d15720c7381949046b8d0d46db05befd, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1323076263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1323076267}
+  - component: {fileID: 1323076266}
+  - component: {fileID: 1323076265}
+  - component: {fileID: 1323076264}
+  m_Layer: 5
+  m_Name: Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1323076264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1323076263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1323076265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1323076263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+--- !u!223 &1323076266
+Canvas:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1323076263}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 1
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!224 &1323076267
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1323076263}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 32
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &1327951910 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1321972842730422, guid: f541330056297ab41be4ddfcf0d00754,
@@ -25457,8 +25550,8 @@ MonoBehaviour:
   HideCursor: 0
   target: {fileID: 103350676}
   Player: {fileID: 439141466}
-  Ability1: 
-  Ability2: 
+  Ability1: Teleport
+  Ability2: RighteousFire
   Respawntarget: {fileID: 4040824468048206, guid: 3447086217d32494bb8dffcc7776e254,
     type: 2}
   RespawnPlayer: {fileID: 1736319638091202, guid: 3447086217d32494bb8dffcc7776e254,
@@ -30949,6 +31042,11 @@ Prefab:
     - target: {fileID: 1719756268022664, guid: ba22e3f92a5e51a49b9c41b1e2428d9d, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114985450012049752, guid: ba22e3f92a5e51a49b9c41b1e2428d9d,
+        type: 2}
+      propertyPath: HealthBar
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba22e3f92a5e51a49b9c41b1e2428d9d, type: 2}
@@ -38695,8 +38793,8 @@ MonoBehaviour:
   HideCursor: 0
   target: {fileID: 1862198892}
   Player: {fileID: 575283364}
-  Ability1: 
-  Ability2: 
+  Ability1: Teleport
+  Ability2: RighteousFire
   Respawntarget: {fileID: 4973314077747492, guid: ec183316231af854db59f6791f086de9,
     type: 2}
   RespawnPlayer: {fileID: 1476437535353956, guid: ec183316231af854db59f6791f086de9,
@@ -39596,7 +39694,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4368992404676820, guid: 0c2d4f0ac4405f7429e70200720dad9a, type: 2}
       propertyPath: m_RootOrder
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0c2d4f0ac4405f7429e70200720dad9a, type: 2}

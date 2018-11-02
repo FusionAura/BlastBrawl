@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public Slider HealthBar;
-
-
 
 
     public float MaxHealth = 100;
@@ -85,7 +82,6 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        HealthBar.value = _Health / MaxHealth*100;
         //If Health is Larger than the maximum amount of Health, deplete health slowly back to the max
         if (_Health > MaxHealth)
         {

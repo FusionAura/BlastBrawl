@@ -51,7 +51,11 @@ public class GameController : MonoBehaviour {
     //Update the Score. First to get to the score limit wins
     public void UpdateScore(int PlayerNum,int Multiplier)
     {
-        switch(PlayerNum)
+        if (Input.GetKeyDown("escape"))
+        {
+            Application.Quit();
+        }
+            switch (PlayerNum)
         {
             case 1:
                 {
